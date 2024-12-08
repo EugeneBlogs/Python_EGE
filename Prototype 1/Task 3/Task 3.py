@@ -40,4 +40,3 @@ for el in permutations("ABCDEFG"):
         то добавляем длину "c" в список, а затем выводим сумму списка (т.е. сумму длин дорог)
         '''
         print(sum([c for x, y, c in table if letters1 == [x, y] or letters2 == [x, y]]))
-# Ответ: 35.
