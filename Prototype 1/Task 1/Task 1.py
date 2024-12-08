@@ -36,5 +36,4 @@ for el in permutations("ABCDEFG"):  # Перебираем все возможн
     "all(...)" - Проверяет, всегда ли выражение внутри выдаёт истину
     '''
     if all([[el[x - 1], el[y - 1]] in graph or [el[y - 1], el[x - 1]] in graph for x, y in table]):
-        print(el.index("B") + 1, el.index("E") + 1)  # Выводим ответ: номера "В" и "Е"
-        # В ответ пишем "26" - в возрастающем порядке
+        print(sorted([el.index("B") + 1, el.index("E") + 1]))  # Выводим ответ: номера "В" и "Е" в порядке возрастания
