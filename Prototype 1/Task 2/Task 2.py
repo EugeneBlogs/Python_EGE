@@ -30,5 +30,4 @@ table = [
 
 for el in permutations("ABCDEFG"):
     if all([[el[x - 1], el[y - 1]] in graph or [el[y - 1], el[x - 1]] in graph for x, y in table]):
-        print(el.index("E") + 1, el.index("F") + 1)
-# Ответ: 35.
+        print(sorted([el.index("E") + 1, el.index("F") + 1]))
