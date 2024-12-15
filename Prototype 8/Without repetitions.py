@@ -33,3 +33,20 @@ for x in p:
     if "АА" not in str:
         count += 1
 print(count)
+
+'''
+Сколько существует шестнадцатеричных трёхзначных чисел, в которых все цифры различны и никакие две чётные или две нечётные цифры не стоят рядом?
+'''
+
+from itertools import permutations
+
+count = 0
+even = "02468ACE"
+odd = "13579BDF"
+p = permutations(even + odd, 3)
+for x in p:
+    str = "".join(x)
+    if str[0] != "0" and ((str[0] in even and str[1] in odd and str[2] in even) or (
+            str[0] in odd and str[1] in even and str[2] in odd)):
+        count += 1
+print(count)
