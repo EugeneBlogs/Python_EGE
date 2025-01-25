@@ -22,6 +22,7 @@ shape("form") - Изменяет указатель ("arrow", "classic", "turtle
 '''
 
 # ПРИМЕР РИСУНКОВ
+bgcolor("light pink")
 pendown()
 
 # Квадрат
