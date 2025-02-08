@@ -177,3 +177,20 @@ for x in p:
     if s[0] != "П" and "ГИ" not in s:
         count += 1
 print(count)
+
+# Условие задания КИМ 8 (Умскул):
+'''
+Определите количество четырехзначных чисел, записанных в пятеричной системе счисления,
+в записи которых цифры следуют слева направо в строго убывающем порядке.
+'''
+
+from itertools import product
+
+p = product("01234", repeat=4)
+count = 0
+for x in p:
+    s = "".join(x)
+    if s[0] != "0":
+        if int(s[0]) > int(s[1]) > int(s[2]) > int(s[3]):
+            count += 1
+print(count)
