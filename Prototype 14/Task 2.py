@@ -69,11 +69,8 @@ def five(n):
     return result[::-1]
 
 
-maximum_x = 0
-
-for x in range(1, 2030 + 1):
+for x in range(2030, 0, -1):
     n = 5 ** 150 + 5 ** 100 - x
     if five(n).count("0") == 50:
-        maximum_0 = five(n).count("0")
-        maximum_x = x
-print(maximum_x)
+        print(x)
+        break
