@@ -1,6 +1,8 @@
 # Перевод из 10 системы счисления в "N"
 
-alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+import string
+
+alphabet = string.digits + string.ascii_uppercase
 result = ""
 base = int(input("Система счисления: "))
 number = int(input("Число: "))
