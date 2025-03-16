@@ -8,19 +8,23 @@
 '''
 
 from functools import lru_cache
+import sys
+
+# Также увеличиваем лимит рекурсии, потому что числа слишком большие
+sys.setrecursionlimit(10000)
 
 
 @lru_cache(None)
 # ВАШ КОД
 def F(n):
-    if n < 11:
-        return 10
-    else:
-        return n + F(n - 1)
+    if n < 4 or n % 2 != 0:
+        return 1
+    if n > 3 and n % 2 == 0:
+        return F(n - 1) + F(n - 2) + F(n - 3)
 
 
 # Чтобы данные закэшировались, вызываем функцию примерно столько раз, чтобы все используемые числа были в диапозоне
-for i in range(1, 2025):
+for i in range(1, 5000):
     F(i)
 
-print(F(2022) - F(2019))  # Вызываем функцию уже с нужным условием
+print(F(4008) - F(4002))  # Вызываем функцию уже с нужным условием
