@@ -8,7 +8,7 @@
     <style>
         /* Основные стили */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333;
             max-width: 900px;
@@ -236,6 +236,59 @@
         .memory-table th {
             background-color: #f2f2f2;
         }
+
+        /* Проверка ответов */
+        .answer-input {
+            margin-top: 10px;
+            padding: 8px;
+            width: 200px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            transition: border-color 0.3s ease;
+        }
+
+        .answer-input.correct {
+            border: 2px solid #27ae60;
+        }
+
+        .answer-input.incorrect {
+            border: 2px solid #e74c3c;
+        }
+
+        .answer-input.empty {
+            border: 2px solid #f39c12;
+        }
+
+        .check-btn {
+            padding: 8px 15px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .check-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .answer-feedback {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .correct {
+            color: #27ae60;
+        }
+
+        .incorrect {
+            color: #e74c3c;
+        }
+
+        .empty {
+            color: #f39c12;
+        }
     </style>
 </head>
 
@@ -351,6 +404,10 @@
                 Ответ: <span class="answer">16</span>.
             </div>
             <div class="source">Источник: Решу ЕГЭ</div>
+
+            <input type="text" class="answer-input" placeholder="Введите ваш ответ">
+            <button class="check-btn" data-correct="16">Проверить</button>
+            <div class="answer-feedback"></div>
         </div>
 
         <div class="task">
@@ -372,6 +429,10 @@
                 Ответ: <span class="answer">256</span>.
             </div>
             <div class="source">Источник: Решу ЕГЭ</div>
+
+            <input type="text" class="answer-input" placeholder="Введите ваш ответ">
+            <button class="check-btn" data-correct="256">Проверить</button>
+            <div class="answer-feedback"></div>
         </div>
 
         <div class="task">
@@ -397,6 +458,10 @@
                 Ответ: <span class="answer">16</span>.
             </div>
             <div class="source">Источник: Решу ЕГЭ</div>
+
+            <input type="text" class="answer-input" placeholder="Введите ваш ответ">
+            <button class="check-btn" data-correct="16">Проверить</button>
+            <div class="answer-feedback"></div>
         </div>
 
         <div class="task">
@@ -418,6 +483,10 @@
                 Ответ: <span class="answer">256</span>.
             </div>
             <div class="source">Источник: Решу ЕГЭ</div>
+
+            <input type="text" class="answer-input" placeholder="Введите ваш ответ">
+            <button class="check-btn" data-correct="256">Проверить</button>
+            <div class="answer-feedback"></div>
         </div>
 
         <div class="task">
@@ -439,6 +508,10 @@
                 Ответ: <span class="answer">2</span>.
             </div>
             <div class="source">Источник: Решу ЕГЭ</div>
+
+            <input type="text" class="answer-input" placeholder="Введите ваш ответ">
+            <button class="check-btn" data-correct="2">Проверить</button>
+            <div class="answer-feedback"></div>
         </div>
 
         <div class="task">
@@ -463,6 +536,10 @@
                 Ответ: <span class="answer">2</span>.
             </div>
             <div class="source">Источник: Решу ЕГЭ</div>
+
+            <input type="text" class="answer-input" placeholder="Введите ваш ответ">
+            <button class="check-btn" data-correct="2">Проверить</button>
+            <div class="answer-feedback"></div>
         </div>
 
         <div class="task">
@@ -483,6 +560,10 @@
                 Ответ: <span class="answer">15</span>.
             </div>
             <div class="source">Источник: Решу ЕГЭ</div>
+
+            <input type="text" class="answer-input" placeholder="Введите ваш ответ">
+            <button class="check-btn" data-correct="15">Проверить</button>
+            <div class="answer-feedback"></div>
         </div>
 
         <div class="task">
@@ -507,6 +588,10 @@
                 Ответ: <span class="answer">4</span>.
             </div>
             <div class="source">Источник: Решу ЕГЭ</div>
+
+            <input type="text" class="answer-input" placeholder="Введите ваш ответ">
+            <button class="check-btn" data-correct="4">Проверить</button>
+            <div class="answer-feedback"></div>
         </div>
 
         <div class="task">
@@ -529,6 +614,10 @@
                 Ответ: <span class="answer">5</span>.
             </div>
             <div class="source">Источник: Решу ЕГЭ</div>
+
+            <input type="text" class="answer-input" placeholder="Введите ваш ответ">
+            <button class="check-btn" data-correct="5">Проверить</button>
+            <div class="answer-feedback"></div>
         </div>
 
         <div class="task">
@@ -551,6 +640,10 @@
                 Ответ: <span class="answer">139</span>.
             </div>
             <div class="source">Источник: Решу ЕГЭ</div>
+
+            <input type="text" class="answer-input" placeholder="Введите ваш ответ">
+            <button class="check-btn" data-correct="139">Проверить</button>
+            <div class="answer-feedback"></div>
         </div>
 
         <div class="task">
@@ -575,6 +668,10 @@
                 Ответ: <span class="answer">70</span>.
             </div>
             <div class="source">Источник: Решу ЕГЭ</div>
+
+            <input type="text" class="answer-input" placeholder="Введите ваш ответ">
+            <button class="check-btn" data-correct="70">Проверить</button>
+            <div class="answer-feedback"></div>
         </div>
 
         <div class="task">
@@ -602,6 +699,10 @@
                 Ответ: <span class="answer">60</span>.
             </div>
             <div class="source">Источник: Решу ЕГЭ</div>
+
+            <input type="text" class="answer-input" placeholder="Введите ваш ответ">
+            <button class="check-btn" data-correct="60">Проверить</button>
+            <div class="answer-feedback"></div>
         </div>
     </div>
 
@@ -633,6 +734,10 @@
                 Ответ: <span class="answer">10</span>.
             </div>
             <div class="source">Источник: Решу ЕГЭ</div>
+
+            <input type="text" class="answer-input" placeholder="Введите ваш ответ">
+            <button class="check-btn" data-correct="10">Проверить</button>
+            <div class="answer-feedback"></div>
         </div>
 
         <div class="task">
@@ -655,6 +760,10 @@
                 Ответ: <span class="answer">43200</span>.
             </div>
             <div class="source">Источник: Решу ЕГЭ</div>
+
+            <input type="text" class="answer-input" placeholder="Введите ваш ответ">
+            <button class="check-btn" data-correct="43200">Проверить</button>
+            <div class="answer-feedback"></div>
         </div>
 
         <div class="task">
@@ -683,6 +792,10 @@
                 Ответ: <span class="answer">150</span>.
             </div>
             <div class="source">Источник: Решу ЕГЭ</div>
+
+            <input type="text" class="answer-input" placeholder="Введите ваш ответ">
+            <button class="check-btn" data-correct="150">Проверить</button>
+            <div class="answer-feedback"></div>
         </div>
 
         <div class="task">
@@ -702,6 +815,10 @@
                 Ответ: <span class="answer">24</span>.
             </div>
             <div class="source">Источник: Решу ЕГЭ</div>
+
+            <input type="text" class="answer-input" placeholder="Введите ваш ответ">
+            <button class="check-btn" data-correct="24">Проверить</button>
+            <div class="answer-feedback"></div>
         </div>
 
         <div class="task">
@@ -735,6 +852,10 @@
                 Ответ: <span class="answer">5</span>.
             </div>
             <div class="source">Источник: Решу ЕГЭ</div>
+
+            <input type="text" class="answer-input" placeholder="Введите ваш ответ">
+            <button class="check-btn" data-correct="5">Проверить</button>
+            <div class="answer-feedback"></div>
         </div>
 
         <div class="task">
@@ -763,6 +884,10 @@
                 Ответ: <span class="answer">4</span>.
             </div>
             <div class="source">Источник: Решу ЕГЭ</div>
+
+            <input type="text" class="answer-input" placeholder="Введите ваш ответ">
+            <button class="check-btn" data-correct="4">Проверить</button>
+            <div class="answer-feedback"></div>
         </div>
 
         <div class="task">
@@ -788,6 +913,10 @@
                 Ответ: <span class="answer">50</span>.
             </div>
             <div class="source">Источник: Решу ЕГЭ</div>
+
+            <input type="text" class="answer-input" placeholder="Введите ваш ответ">
+            <button class="check-btn" data-correct="50">Проверить</button>
+            <div class="answer-feedback"></div>
         </div>
 
         <div class="task">
@@ -810,6 +939,10 @@
                 Ответ: <span class="answer">26</span>.
             </div>
             <div class="source">Источник: Решу ЕГЭ</div>
+
+            <input type="text" class="answer-input" placeholder="Введите ваш ответ">
+            <button class="check-btn" data-correct="26">Проверить</button>
+            <div class="answer-feedback"></div>
         </div>
 
         <div class="task">
@@ -828,6 +961,10 @@
                 Ответ: <span class="answer">10</span>.
             </div>
             <div class="source">Источник: Решу ЕГЭ</div>
+
+            <input type="text" class="answer-input" placeholder="Введите ваш ответ">
+            <button class="check-btn" data-correct="10">Проверить</button>
+            <div class="answer-feedback"></div>
         </div>
     </div>
 
@@ -858,6 +995,10 @@
                 Ответ: <span class="answer">25</span>.
             </div>
             <div class="source">Источник: Решу ЕГЭ</div>
+
+            <input type="text" class="answer-input" placeholder="Введите ваш ответ">
+            <button class="check-btn" data-correct="25">Проверить</button>
+            <div class="answer-feedback"></div>
         </div>
 
         <div class="task">
@@ -876,6 +1017,10 @@
                 Ответ: <span class="answer">480000</span>.
             </div>
             <div class="source">Источник: Решу ЕГЭ</div>
+
+            <input type="text" class="answer-input" placeholder="Введите ваш ответ">
+            <button class="check-btn" data-correct="480000">Проверить</button>
+            <div class="answer-feedback"></div>
         </div>
 
         <div class="task">
@@ -904,6 +1049,10 @@
                 Ответ: <span class="answer">1088</span>.
             </div>
             <div class="source">Источник: Решу ЕГЭ</div>
+
+            <input type="text" class="answer-input" placeholder="Введите ваш ответ">
+            <button class="check-btn" data-correct="1088">Проверить</button>
+            <div class="answer-feedback"></div>
         </div>
 
         <div class="task">
@@ -938,6 +1087,10 @@
                 Ответ: <span class="answer">Б9</span>.
             </div>
             <div class="source">Источник: Решу ЕГЭ</div>
+
+            <input type="text" class="answer-input" placeholder="Введите ваш ответ">
+            <button class="check-btn" data-correct="Б9">Проверить</button>
+            <div class="answer-feedback"></div>
         </div>
     </div>
 
@@ -948,49 +1101,79 @@
 
     <script>
         // Переключение между категориями
-        document.querySelectorAll('.category-tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-                document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
-                document.querySelectorAll('.category-content').forEach(c => c.classList.remove('active'));
+        document.querySelectorAll(".category-tab").forEach(tab => {
+            tab.addEventListener("click", () => {
+                document.querySelectorAll(".category-tab").forEach(t => t.classList.remove("active"))
+                document.querySelectorAll(".category-content").forEach(c => c.classList.remove("active"))
 
-                tab.classList.add('active');
-                const categoryId = tab.getAttribute('data-category');
-                document.getElementById(categoryId).classList.add('active');
+                tab.classList.add("active")
+                const categoryId = tab.getAttribute("data-category")
+                document.getElementById(categoryId).classList.add("active")
             });
         });
 
         // Показать/скрыть решение
-        document.querySelectorAll('.solution-toggle').forEach(toggle => {
-            toggle.addEventListener('click', () => {
-                const solution = toggle.nextElementSibling;
-                if (solution.style.display === 'block') {
-                    solution.style.display = 'none';
-                    toggle.textContent = 'Показать решение';
+        document.querySelectorAll(".solution-toggle").forEach(toggle => {
+            toggle.addEventListener("click", () => {
+                const solution = toggle.nextElementSibling
+                if (solution.style.display === "block") {
+                    solution.style.display = "none"
+                    toggle.textContent = "Показать решение"
                 } else {
-                    solution.style.display = 'block';
-                    toggle.textContent = 'Скрыть решение';
+                    solution.style.display = "block"
+                    toggle.textContent = "Скрыть решение"
                 }
             });
         });
 
         // Модальное окно с теорией
-        const modal = document.getElementById("theoryModal");
-        const btn = document.getElementById("theoryBtn");
-        const span = document.getElementsByClassName("close")[0];
+        const modal = document.getElementById("theoryModal")
+        const btn = document.getElementById("theoryBtn")
+        const span = document.getElementsByClassName("close")[0]
 
         btn.onclick = function () {
-            modal.style.display = "block";
+            modal.style.display = "block"
         }
 
         span.onclick = function () {
-            modal.style.display = "none";
+            modal.style.display = "none"
         }
 
         window.onclick = function (event) {
             if (event.target == modal) {
-                modal.style.display = "none";
+                modal.style.display = "none"
             }
         }
+
+        // Проверка ответов
+        document.querySelectorAll(".check-btn").forEach(button => {
+            button.addEventListener("click", function () {
+                const input = this.previousElementSibling
+                const feedback = this.nextElementSibling
+                const correctAnswer = this.getAttribute("data-correct")
+                const userAnswer = input.value.trim()
+
+                // Удаляем предыдущие классы
+                input.classList.remove("correct", "incorrect", "empty")
+
+                if (userAnswer === "") {
+                    // Пустой ответ
+                    input.classList.add("empty")
+                    feedback.textContent = "Поле ответа пустое"
+                    feedback.className = "answer-feedback empty"
+                } else if (userAnswer === correctAnswer) {
+                    // Правильный ответ
+                    input.classList.add("correct")
+                    feedback.textContent = "Верно! Молодец!"
+                    feedback.className = "answer-feedback correct"
+                } else {
+                    // Неправильный ответ
+                    input.classList.add("incorrect")
+                    feedback.textContent = "Неверно! Попробуй ещё раз!"
+                    feedback.className = "answer-feedback incorrect"
+                }
+            })
+        })
     </script>
 </body>
 
