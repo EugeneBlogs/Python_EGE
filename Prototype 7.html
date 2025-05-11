@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание №7 из ЕГЭ по информатике</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            color: #2980b9;
+            margin-top: 40px;
+            padding-bottom: 5px;
+            border-bottom: 1px dashed #bdc3c7;
+        }
+
+        .task {
+            background: white;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .task-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .condition {
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #f1f5f9;
+            border-left: 3px solid #3498db;
+        }
+
+        .solution {
+            display: none;
+            margin-top: 15px;
+            padding: 10px;
+            background: #e8f4f8;
+            border-left: 3px solid #2ecc71;
+        }
+
+        .solution-toggle {
+            color: #3498db;
+            cursor: pointer;
+            font-size: 0.9em;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .solution-toggle:hover {
+            text-decoration: underline;
+        }
+
+        .answer {
+            font-weight: bold;
+            color: #27ae60;
+        }
+
+        .source {
+            font-size: 0.8em;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #7f8c8d;
+            border-top: 1px solid #ecf0f1;
+            padding-top: 20px;
+        }
+
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .category-tab {
+            padding: 10px 20px;
+            margin: 0 5px;
+            background: #ecf0f1;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .category-tab:hover,
+        .category-tab.active {
+            background: #3498db;
+            color: white;
+        }
+
+        .category-content {
+            display: none;
+        }
+
+        .category-content.active {
+            display: block;
+        }
+
+        sup {
+            vertical-align: super;
+            font-size: smaller;
+        }
+
+        .frac {
+            display: inline-block;
+            position: relative;
+            vertical-align: middle;
+            letter-spacing: 0.001em;
+            text-align: center;
+        }
+
+        .frac>span {
+            display: block;
+            padding: 0.1em;
+        }
+
+        .frac span.bottom {
+            border-top: thin solid black;
+        }
+
+        .frac span.symbol {
+            display: none;
+        }
+
+        .theory-btn {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 10px;
+            background: #3498db;
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .theory-btn:hover {
+            background: #2980b9;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 800px;
+            border-radius: 5px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: black;
+        }
+
+        .theory-block {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+
+        .theory-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .memory-table {
+            border: 1px solid #ddd;
+            border-collapse: collapse;
+            width: 100%;
+            margin: 15px 0;
+        }
+
+        .memory-table th,
+        .memory-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .memory-table th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Задание №7 из ЕГЭ по информатике</h1>
+
+    <div class="theory-btn" id="theoryBtn">Показать теорию</div>
+
+    <div class="category-tabs">
+        <div class="category-tab active" data-category="images">Изображения</div>
+        <div class="category-tab" data-category="sound">Звук</div>
+        <div class="category-tab" data-category="text">Текстовые документы</div>
+    </div>
+
+    <!-- Модальное окно с теорией -->
+    <div id="theoryModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Теория для задания №7</h2>
+
+            <div class="theory-block">
+                <div class="theory-title">Изображения:</div>
+                <p><i>Формула для нахождения количества цветов в используемой палитре:</i>
+                    <b>N = 2<sup>i</sup></b>, где<br>
+                    N - количество цветов<br>
+                    i - глубина цвета (в битах)
+                </p>
+
+                <p><i>Формула объёма памяти для хранения растрового изображения:</i>
+                    <b>V = x × y × i</b>, где<br>
+                    V - объём памяти, требуемый для хранения изображения<br>
+                    x - ширина изображения (в пикселях)<br>
+                    y - высота изображения (в пикселях)<br>
+                    i - глубина кодирования цвета или разрешение (в битах)
+                </p>
+            </div>
+
+            <div class="theory-block">
+                <div class="theory-title">Звук:</div>
+                <p><i>Формула объёма звукового файла:</i>
+                    <b>V = β × ƒ × t × S</b>, где<br>
+                    V - объём<br>
+                    β - глубина кодирования (в битах)<br>
+                    ƒ - частота дискретизации (в Гц (герцах))<br>
+                    t - время (в секундах)<br>
+                    S - количество каналов (для моно = 1, для стерео = 2, для квадро = 4)
+                </p>
+            </div>
+
+            <div class="theory-block">
+                <div class="theory-title">Передача данных:</div>
+                <p><i>Формула объём переданной информации:</i>
+                    <b>I = v × t</b>, где<br>
+                    I - объём информации<br>
+                    v - пропускная способность канала связи (в бит/сек (битах в секунду))<br>
+                    t - время передачи (в секундах)
+                </p>
+
+                <p><i>Формула скорости передачи данных:</i>
+                    <b>v = <span class="frac"><span>I</span><span class="symbol">/</span><span
+                                class="bottom">t</span></span></b>
+                </p>
+            </div>
+
+            <div class="theory-block">
+                <div class="theory-title">Единицы измерения информации:</div>
+                <table class="memory-table">
+                    <tr>
+                        <th>Единица</th>
+                        <th>Соотношение</th>
+                    </tr>
+                    <tr>
+                        <td>1 байт</td>
+                        <td>8 бит</td>
+                    </tr>
+                    <tr>
+                        <td>1 килобайт (Кб)</td>
+                        <td>1024 байт</td>
+                    </tr>
+                    <tr>
+                        <td>1 мегабайт (Мб)</td>
+                        <td>1024 Кб</td>
+                    </tr>
+                    <tr>
+                        <td>1 гигабайт (Гб)</td>
+                        <td>1024 Мб</td>
+                    </tr>
+                    <tr>
+                        <td>1 терабайт (Тб)</td>
+                        <td>1024 Гб</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="images" class="category-content active">
+        <h2>Изображения</h2>
+
+        <!-- Задача 1 -->
+        <div class="task">
+            <div class="task-title">ЗАДАНИЕ №1</div>
+            <div class="condition">
+                Какой минимальный объём памяти (в Кбайт) нужно зарезервировать, чтобы можно было сохранить любое
+                растровое изображение размером 128×128 пикселей при условии, что в изображении могут использоваться 256
+                различных цветов?
+                В ответе запишите только целое число, единицу измерения писать не нужно.
+            </div>
+            <div class="solution-toggle">Показать решение</div>
+            <div class="solution">
+                Количество цветов: N = 2<sup>i</sup> = 256 ⇒ i = 8 бит (так как 2<sup>8</sup> = 256)<br>
+                Объём изображения: V = 128 × 128 × 8 = 2<sup>7</sup> × 2<sup>7</sup> × 2<sup>3</sup> = 2<sup>17</sup>
+                бит = 2<sup>14</sup> байт = 2<sup>4</sup> Кбайт = 16 Кбайт<br><br>
+                Ответ: <span class="answer">16</span>.
+            </div>
+            <div class="source">Источник: Решу ЕГЭ</div>
+        </div>
+
+        <!-- Остальные задачи по изображениям -->
+        <!-- Задача 2 -->
+        <div class="task">
+            <div class="task-title">ЗАДАНИЕ №2</div>
+            <div class="condition">
+                Сколько секунд потребуется обычному модему, передающему сообщения со скоростью 28800 бит/с,
+                чтобы передать цветное растровое изображение размером 640×480 пикселей, при условии, что цвет каждого
+                пикселя кодируется тремя байтами?
+            </div>
+            <div class="solution-toggle">Показать решение</div>
+            <div class="solution">
+                Время t вычисляется по формуле: t = <span class="frac"><span>I</span><span class="symbol">/</span><span
+                        class="bottom">v</span></span><br>
+                Найдем объём файла:<br>
+                I = 640 × 480 × 3 байт = 921600 байт = 7372800 бит<br>
+                Тогда время t равно:<br>
+                t = <span class="frac"><span>7372800 бит</span><span class="symbol">/</span><span class="bottom">28800
+                        бит/с</span></span> = 256 с<br><br>
+                Ответ: <span class="answer">256</span>.
+            </div>
+            <div class="source">Источник: Решу ЕГЭ</div>
+        </div>
+
+        <!-- Задача 3 -->
+        <div class="task">
+            <div class="task-title">ЗАДАНИЕ №3</div>
+            <div class="condition">
+                Для хранения произвольного растрового изображения размером 1024×1024 пикселей отведено 512 Кбайт памяти,
+                при этом для каждого пикселя хранится двоичное число - код цвета этого пикселя. Для каждого пикселя для
+                хранения кода выделено
+                одинаковое количество бит. Сжатие данных не производится. Какое максимальное количество цветов можно
+                использовать в изображении?
+            </div>
+            <div class="solution-toggle">Показать решение</div>
+            <div class="solution">
+                512 Кбайт = (512 × 1024 × 8) бит<br>
+                V = 1024 × 1024 × i = (512 × 1024 × 8) бит<br>
+                i = <span class="frac"><span>512 × 1024 × 8</span><span class="symbol">/</span><span class="bottom">1024
+                        × 1024</span></span> = <span class="frac"><span>2<sup>9</sup> × 2<sup>10</sup> ×
+                        2<sup>3</sup></span><span class="symbol">/</span><span class="bottom">2<sup>10</sup> ×
+                        2<sup>10</sup></span></span> = <span class="frac"><span>2<sup>22</sup></span><span
+                        class="symbol">/</span><span class="bottom">2<sup>20</sup></span></span> = 2<sup>2</sup> = 4
+                бит<br>
+                N = 2<sup>i</sup> = 2<sup>4</sup> = 16 цветов<br><br>
+                Ответ: <span class="answer">16</span>.
+            </div>
+            <div class="source">Источник: Решу ЕГЭ</div>
+        </div>
+
+        <!-- Задача 4 -->
+        <div class="task">
+            <div class="task-title">ЗАДАНИЕ №4</div>
+            <div class="condition">
+                Автоматическая фотокамера производит растровые изображения размером 640×480 пикселей.
+                При этом объём файла с изображением не может превышать 320 Кбайт, упаковка данных не производится.
+                Какое максимальное количество цветов можно использовать в палитре?
+            </div>
+            <div class="solution-toggle">Показать решение</div>
+            <div class="solution">
+                320 Кбайт = (320 × 1024 × 8) бит<br>
+                V = 640 × 480 × i ≤ (320 × 1024 × 8) бит<br>
+                307200i ≤ 2621440<br>
+                i ≤ <span class="frac"><span>2621440</span><span class="symbol">/</span><span
+                        class="bottom">307200</span></span><br>
+                i ≤ 8.53 ⇒ i = 8 бит<br>
+                N = 2<sup>i</sup> = 2<sup>8</sup> = 256 цветов<br><br>
+                Ответ: <span class="answer">256</span>.
+            </div>
+            <div class="source">Источник: Решу ЕГЭ</div>
+        </div>
+
+        <!-- Задача 5 -->
+        <div class="task">
+            <div class="task-title">ЗАДАНИЕ №5</div>
+            <div class="condition">
+                Графический файл с разрешением 1024×600 на жестком диске занимает не более 120 КБайт.
+                Определите максимальное количество цветов, которое может использоваться для кодирования данного
+                изображения.
+            </div>
+            <div class="solution-toggle">Показать решение</div>
+            <div class="solution">
+                120 Кбайт = (120 × 1024 × 8) бит<br>
+                V = 1024 × 600 × i ≤ (120 × 1024 × 8) бит<br>
+                614400i ≤ 983040<br>
+                i ≤ <span class="frac"><span>983040</span><span class="symbol">/</span><span
+                        class="bottom">614400</span></span><br>
+                i ≤ 1.6 ⇒ i = 1 бит<br>
+                N = 2<sup>i</sup> = 2<sup>1</sup> = 2 цвета<br><br>
+                Ответ: <span class="answer">2</span>.
+            </div>
+            <div class="source">Источник: Решу ЕГЭ</div>
+        </div>
+
+        <!-- Задача 6 -->
+        <div class="task">
+            <div class="task-title">ЗАДАНИЕ №6</div>
+            <div class="condition">
+                Для хранения в информационной системе документы сканируются с разрешением 600dpi и цветовой системой,
+                содержащей 2<sup>24</sup> = 16777216 цветов.
+                Методы сжатия изображений не используются. Средний размер отсканированного документа составляет 12
+                Мбайт.
+                В целях экономии было решено перейти на разрешение 300dpi и цветовую систему, содержащую 2<sup>16</sup>
+                = 65536 цветов.
+                Сколько Мбайт будет составлять средний размер документа, отсканированного с изменёнными параметрами?
+            </div>
+            <div class="solution-toggle">Показать решение</div>
+            <div class="solution">
+                Изменение разрешения: <span class="frac"><span>600 × 600</span><span class="symbol">/</span><span
+                        class="bottom">300 × 300</span></span> = 4 раза (уменьшение)<br>
+                Изменение глубины цвета: <span class="frac"><span>24</span><span class="symbol">/</span><span
+                        class="bottom">16</span></span> = 1.5 раза (уменьшение)<br>
+                Новый размер: <span class="frac"><span>12 Мбайт</span><span class="symbol">/</span><span
+                        class="bottom">4 × 1.5</span></span> = 2 Мбайт<br><br>
+                Ответ: <span class="answer">2</span>.
+            </div>
+            <div class="source">Источник: Решу ЕГЭ</div>
+        </div>
+
+        <!-- Задача 7 -->
+        <div class="task">
+            <div class="task-title">ЗАДАНИЕ №7</div>
+            <div class="condition">
+                В информационной системе хранятся изображения размером 160×128 пикселей, содержащие не более 64
+                различных цветов.
+                Коды пикселей записываются подряд, никакая дополнительная информация об изображении не сохраняется,
+                данные не сжимаются.
+                Сколько Кбайт нужно выделить для хранения одного изображения? В ответе укажите только целое число -
+                количество Кбайт,
+                единицу измерения указывать не надо.
+            </div>
+            <div class="solution-toggle">Показать решение</div>
+            <div class="solution">
+                N = 2<sup>i</sup> = 64 ⇒ i = 6 бит<br>
+                V = 160 × 128 × 6 = 122880 бит = 15360 байт = 15 Кбайт<br><br>
+                Ответ: <span class="answer">15</span>.
+            </div>
+            <div class="source">Источник: Решу ЕГЭ</div>
+        </div>
+
+        <!-- Задача 8 -->
+        <div class="task">
+            <div class="task-title">ЗАДАНИЕ №8</div>
+            <div class="condition">
+                Камера наблюдения делает фотографии и передаёт их по каналу связи в виде сжатых изображений размером
+                640×480 пикселей и разрешением 16 бит.
+                Пропускная способность канала позволяет передать 12 фотографий в секунду. Для повышения качества
+                наблюдения камеру заменили на новую.
+                Новая камера передаёт фотографии размером 1280×960 пикселей и разрешением 24 бит, при этом коэффициент
+                сжатия изображения не изменился.
+                Сколько фотографий в секунду сможет передать новая камера, если в два раза увеличить пропускную
+                способность канала связи?
+            </div>
+            <div class="solution-toggle">Показать решение</div>
+            <div class="solution">
+                Увеличение объема: <span class="frac"><span>1280 × 960 × 24</span><span class="symbol">/</span><span
+                        class="bottom">640 × 480 × 16</span></span> = 6 раз<br>
+                Новая пропускная способность: 12 фото/сек × 2 = 24 фото/сек (эквивалентно старому качеству)<br>
+                Фотографий с новым качеством: <span class="frac"><span>24</span><span class="symbol">/</span><span
+                        class="bottom">6</span></span> = 4 фото/сек<br><br>
+                Ответ: <span class="answer">4</span>.
+            </div>
+            <div class="source">Источник: Решу ЕГЭ</div>
+        </div>
+
+        <!-- Задача 9 -->
+        <div class="task">
+            <div class="task-title">ЗАДАНИЕ №9</div>
+            <div class="condition">
+                Камера наблюдения каждые n секунд (n - целое число) делает фотографию с разрешением 1024×768
+                пикселей и палитрой 4096 цветов.
+                Фотографии передаются по каналу с пропускной способностью 200 Кбайт/сек, при этом используются методы
+                сжатия,
+                позволяющие уменьшить размер изображения в среднем на 20%.
+                Определите минимально возможное значение n, при котором возможна передача в режиме реального времени.
+            </div>
+            <div class="solution-toggle">Показать решение</div>
+            <div class="solution">
+                N = 2<sup>i</sup> = 4096 ⇒ i = 12 бит<br>
+                V = 1024 × 768 × 12 = 9437184 бит = 1179648 байт = 1152 Кбайт<br>
+                После сжатия: 1152 × 0.8 = 921.6 Кбайт<br>
+                Время передачи: <span class="frac"><span>921.6 Кбайт</span><span class="symbol">/</span><span
+                        class="bottom">200 Кбайт/сек</span></span> ≈ 4.608 сек ⇒ n = 5 сек<br><br>
+                Ответ: <span class="answer">5</span>.
+            </div>
+            <div class="source">Источник: Решу ЕГЭ</div>
+        </div>
+
+        <!-- Задача 10 -->
+        <div class="task">
+            <div class="task-title">ЗАДАНИЕ №10</div>
+            <div class="condition">
+                Прибор автоматической фиксации нарушений правил дорожного движения делает цветные фотографии размером
+                1024×960 пикселей,
+                используя палитру из 8192 цветов. Снимки сохраняются в памяти камеры, группируются в пакеты по 160 шт.,
+                затем передаются в центр обработки информации со скоростью передачи данных 14680064 бит/с.
+                Сколько секунд требуется для передачи одного пакета фотографий? В ответе запишите целую часть
+                полученного числа.
+            </div>
+            <div class="solution-toggle">Показать решение</div>
+            <div class="solution">
+                N = 2<sup>i</sup> = 8192 ⇒ i = 13 бит<br>
+                V<sub>1 фото</sub> = 1024 × 960 × 13 = 12779520 бит<br>
+                V<sub>пакета</sub> = 12779520 × 160 = 2044723200 бит<br>
+                t = <span class="frac"><span>2044723200 бит</span><span class="symbol">/</span><span
+                        class="bottom">14680064 бит/с</span></span> ≈ 139.28 с ⇒ 139 с<br><br>
+                Ответ: <span class="answer">139</span>.
+            </div>
+            <div class="source">Источник: Решу ЕГЭ</div>
+        </div>
+
+        <!-- Задача 11 -->
+        <div class="task">
+            <div class="task-title">ЗАДАНИЕ №11</div>
+            <div class="condition">
+                Фотографию отсканировали с разрешением 150dpi и сжали изображение на 40%. В результате получился файл
+                размером 6 Мбайт.
+                Затем ту же фотографию отсканировали в том же цветовом режиме с разрешением 300dpi.
+                На сколько процентов необходимо сжать полученное изображение, чтобы размер файла составил 12 Мбайт?
+                Заголовки и другую служебную информацию не учитывать. В ответе запишите число - округлённый до целого
+                процент сжатия.
+                Знак процента писать не нужно.
+            </div>
+            <div class="solution-toggle">Показать решение</div>
+            <div class="solution">
+                Пусть x - коэффициент сжатия для нового изображения:<br>
+                <span class="frac"><span>150<sup>2</sup> × 0.6</span><span class="symbol">/</span><span
+                        class="bottom">300<sup>2</sup> × x</span></span> = <span class="frac"><span>6</span><span
+                        class="symbol">/</span><span class="bottom">12</span></span><br>
+                <span class="frac"><span>0.6</span><span class="symbol">/</span><span class="bottom">4x</span></span> =
+                0.5 ⇒ x = 0.3 ⇒ сжатие на 70%<br><br>
+                Ответ: <span class="answer">70</span>.
+            </div>
+            <div class="source">Источник: Решу ЕГЭ</div>
+        </div>
+
+        <!-- Задача 12 -->
+        <div class="task">
+            <div class="task-title">ЗАДАНИЕ №12</div>
+            <div class="condition">
+                Камера дорожного наблюдения делает цветные фотографии с разрешением 1024×768 пикселей, используя палитру
+                из 4096 цветов.
+                Снимки сохраняются в памяти камеры, группируются в пакеты по 100 штук и отправляются в центр обработки
+                по каналу связи с
+                пропускной способностью 128 Кбайт/сек. На сколько процентов необходимо сжать изображения, чтобы
+                передавать один пакет за 6 минут?
+                Заголовки и другую служебную информацию не учитывать. В ответе запишите число - округлённый до целого
+                процент сжатия.
+                Знак процента писать не нужно.
+            </div>
+            <div class="solution-toggle">Показать решение</div>
+            <div class="solution">
+                N = 2<sup>i</sup> = 4096 ⇒ i = 12 бит<br>
+                V<sub>1 фото</sub> = 1024 × 768 × 12 = 9437184 бит = 1152 Кбайт<br>
+                V<sub>пакета</sub> = 1152 × 100 = 115200 Кбайт<br>
+                Необходимый объем для передачи за 6 мин (360 сек):<br>
+                V<sub>необх</sub> = 128 Кбайт/сек × 360 сек = 46080 Кбайт<br>
+                Коэффициент сжатия: <span class="frac"><span>46080</span><span class="symbol">/</span><span
+                        class="bottom">115200</span></span> = 0.4 ⇒ сжатие на 60%<br><br>
+                Ответ: <span class="answer">60</span>.
+            </div>
+            <div class="source">Источник: Решу ЕГЭ</div>
+        </div>
+    </div>
+
+    <div id="sound" class="category-content">
+        <h2>Звук</h2>
+
+        <!-- Задача 1 -->
+        <div class="task">
+            <div class="task-title">ЗАДАНИЕ №1</div>
+            <div class="condition">
+                Музыкальный фрагмент был оцифрован и записан в виде файла без использования сжатия данных.
+                Получившийся файл был передан в город А по каналу связи за 30 секунд.
+                Затем тот же музыкальный фрагмент был оцифрован повторно с разрешением в 2 раза выше и частотой
+                дискретизации в 1,5 раза меньше,
+                чем в первый раз. Сжатие данных не производилось. Полученный файл был передан в город Б; пропускная
+                способность канала связи с
+                городом Б в 4 раза выше, чем канала связи с городом А. Сколько секунд длилась передача файла в город Б?
+                В ответе запишите только целое число, единицу измерения писать не нужно.
+            </div>
+            <div class="solution-toggle">Показать решение</div>
+            <div class="solution">
+                Пусть размер первого получившегося файла = x. Тогда размер второго = x × <span
+                    class="frac"><span>2</span><span class="symbol">/</span><span class="bottom">1.5</span></span> =
+                <span class="frac"><span>4</span><span class="symbol">/</span><span class="bottom">3</span></span> ×
+                x.<br>
+                Пропускная способность канала в город Б выше в 4 раза ⇒ время будет в 4 раза меньше.<br>
+                Итого получаем время: 30 × <span class="frac"><span>4</span><span class="symbol">/</span><span
+                        class="bottom">3</span></span> × <span class="frac"><span>1</span><span
+                        class="symbol">/</span><span class="bottom">4</span></span> = 10 секунд.<br><br>
+                Ответ: <span class="answer">10</span>.
+            </div>
+            <div class="source">Источник: Решу ЕГЭ</div>
+        </div>
+
+        <!-- Задача 2 -->
+        <div class="task">
+            <div class="task-title">ЗАДАНИЕ №2</div>
+            <div class="condition">
+                Голосовое сообщение продолжительностью 90 с было записано в формате стерео и оцифровано с глубиной
+                кодирования 16 бит и
+                частотой дискретизации 48000 измерений в секунду. Сжатие данных не использовалось.
+                Файл с оцифрованным голосовым сообщением был передан по каналу связи, пропускная способность которого
+                3200 бит/с.
+                Сколько секунд длилась передача файла? В ответе запишите целое число, единицу измерения указывать не
+                нужно.
+            </div>
+            <div class="solution-toggle">Показать решение</div>
+            <div class="solution">
+                Объём файла: V = 2 × 16 бит × 48000 Гц × 90 с = 138240000 бит<br>
+                Время передачи: t = <span class="frac"><span>V</span><span class="symbol">/</span><span
+                        class="bottom">v</span></span> = <span class="frac"><span>138240000 бит</span><span
+                        class="symbol">/</span><span class="bottom">3200 бит/с</span></span> = 43200 с<br><br>
+                Ответ: <span class="answer">43200</span>.
+            </div>
+            <div class="source">Источник: Решу ЕГЭ</div>
+        </div>
+
+        <!-- Задача 3 -->
+        <div class="task">
+            <div class="task-title">ЗАДАНИЕ №3</div>
+            <div class="condition">
+                Интернет-сервис предоставляет возможность скачать музыкальную запись в двух вариантах: A (высокое
+                качество) и B (среднее качество).
+                Оба варианта записаны в формате стерео. Вариант A оцифрован с частотой дискретизации 88 кГц и
+                разрешением 24 бит,
+                вариант B - с частотой дискретизации 44 кГц и разрешением 16 бит.
+                В варианте A использовано сжатие данных без потерь, при этом объём файла уменьшился в 2 раза.
+                В варианте B использовано сжатие с потерями, уменьшающее размер файла в 10 раз.
+                Известно, что размер файла варианта B составляет 10 Мбайт.
+                Определите размер файла для варианта A. В ответе укажите только число - размер файла в Мбайт.
+            </div>
+            <div class="solution-toggle">Показать решение</div>
+            <div class="solution">
+                Изменение параметров:<br>
+                Частота: <span class="frac"><span>88</span><span class="symbol">/</span><span
+                        class="bottom">44</span></span> = 2<br>
+                Разрешение: <span class="frac"><span>24</span><span class="symbol">/</span><span
+                        class="bottom">16</span></span> = 1.5<br>
+                Сжатие: <span class="frac"><span>10</span><span class="symbol">/</span><span
+                        class="bottom">2</span></span> = 5<br>
+                Объём A = 10 × 2 × 1.5 × 5 = 150 Мбайт<br><br>
+                Ответ: <span class="answer">150</span>.
+            </div>
+            <div class="source">Источник: Решу ЕГЭ</div>
+        </div>
+
+        <!-- Задача 4 -->
+        <div class="task">
+            <div class="task-title">ЗАДАНИЕ №4</div>
+            <div class="condition">
+                Аудиопоток кодируется в режиме стерео (2 канала) с частотой дискретизации 48 кГц и передаётся по каналу
+                с пропускной способностью 45 Кбайт/сек. При этом используются методы сжатия, которые позволяют сократить
+                объём передаваемой информации на 84%. С какой максимальной глубиной кодирования можно вести запись?
+                В ответе укажите только целое число - максимально возможную глубину кодирования в битах.
+            </div>
+            <div class="solution-toggle">Показать решение</div>
+            <div class="solution">
+                После сжатия остаётся 16% данных (100% - 84%)<br>
+                2 × 48000 Гц × x бит × 0.16 = 45 Кбайт/сек = 368640 бит/сек<br>
+                15360x = 368640 ⇒ x = <span class="frac"><span>368640</span><span class="symbol">/</span><span
+                        class="bottom">15360</span></span> = 24 бита<br><br>
+                Ответ: <span class="answer">24</span>.
+            </div>
+            <div class="source">Источник: Решу ЕГЭ</div>
+        </div>
+
+        <!-- Задача 5 -->
+        <div class="task">
+            <div class="task-title">ЗАДАНИЕ №5</div>
+            <div class="condition">
+                Производится звукозапись музыкального фрагмента в формате стерео (двухканальная запись) с частотой
+                дискретизации 32 кГц и 32-битным разрешением.
+                Результаты записываются в файл, сжатие данных не производится; размер полученного файла 40 Мбайт.
+                Затем производится повторная запись этого же фрагмента в формате моно (одноканальная запись) с частотой
+                дискретизации 16 кГц и 16-битным разрешением.
+                Сжатие данных не производилось.
+                Укажите размер файла в Мбайт, полученного при повторной записи. В ответе запишите только целое число,
+                единицу измерения писать не нужно.
+            </div>
+            <div class="solution-toggle">Показать решение</div>
+            <div class="solution">
+                Изменение параметров:<br>
+                Каналы: <span class="frac"><span>1</span><span class="symbol">/</span><span
+                        class="bottom">2</span></span><br>
+                Частота: <span class="frac"><span>16</span><span class="symbol">/</span><span
+                        class="bottom">32</span></span> = <span class="frac"><span>1</span><span
+                        class="symbol">/</span><span class="bottom">2</span></span><br>
+                Разрешение: <span class="frac"><span>16</span><span class="symbol">/</span><span
+                        class="bottom">32</span></span> = <span class="frac"><span>1</span><span
+                        class="symbol">/</span><span class="bottom">2</span></span><br>
+                Новый объём: 40 × <span class="frac"><span>1</span><span class="symbol">/</span><span
+                        class="bottom">2</span></span> × <span class="frac"><span>1</span><span
+                        class="symbol">/</span><span class="bottom">2</span></span> × <span
+                    class="frac"><span>1</span><span class="symbol">/</span><span class="bottom">2</span></span> = 5
+                Мбайт<br><br>
+                Ответ: <span class="answer">5</span>.
+            </div>
+            <div class="source">Источник: Решу ЕГЭ</div>
+        </div>
+
+        <!-- Задача 6 -->
+        <div class="task">
+            <div class="task-title">ЗАДАНИЕ №6</div>
+            <div class="condition">
+                Музыкальный фрагмент был записан в формате квадро (четырёхканальная запись), оцифрован и сохранён в виде
+                файла без использования сжатия данных. Размер полученного файла без учёта размера заголовка файла - 12
+                Мбайт.
+                Затем тот же музыкальный фрагмент был записан повторно в формате моно и оцифрован с разрешением в 2 раза
+                выше и частотой дискретизации в 1,5 раза меньше, чем в первый раз. Сжатие данных не производилось.
+                Укажите размер в Мбайт файла, полученного при повторной записи.
+                В ответе запишите только целое число, единицу измерения писать не нужно. Искомый объём не учитывает
+                размера заголовка файла.
+            </div>
+            <div class="solution-toggle">Показать решение</div>
+            <div class="solution">
+                Изменение параметров:<br>
+                Каналы: <span class="frac"><span>1</span><span class="symbol">/</span><span
+                        class="bottom">4</span></span><br>
+                Разрешение: 2<br>
+                Частота: <span class="frac"><span>1</span><span class="symbol">/</span><span
+                        class="bottom">1.5</span></span><br>
+                Новый объём: 12 × <span class="frac"><span>1</span><span class="symbol">/</span><span
+                        class="bottom">4</span></span> × 2 × <span class="frac"><span>1</span><span
+                        class="symbol">/</span><span class="bottom">1.5</span></span> = 4 Мбайт<br><br>
+                Ответ: <span class="answer">4</span>.
+            </div>
+            <div class="source">Источник: Решу ЕГЭ</div>
+        </div>
+
+        <!-- Задача 7 -->
+        <div class="task">
+            <div class="task-title">ЗАДАНИЕ №7</div>
+            <div class="condition">
+                Книгу объёмом 1 Мбайт записали как аудиокнигу. Запись велась в формате стерео (2 канала) с частотой 32
+                кГц и разрешением 16 бит.
+                За одну минуту записывалось в среднем 1,5 Кбайт текста. Сжатие данных позволило сократить размер
+                полученного звукового файла на 80%.
+                Для удобства использования запись разделили на фрагменты со средним размером 20 Мбайт. Определите
+                количество полученных фрагментов.
+            </div>
+            <div class="solution-toggle">Показать решение</div>
+            <div class="solution">
+                Время записи: <span class="frac"><span>1 Мбайт</span><span class="symbol">/</span><span
+                        class="bottom">1.5 Кбайт/мин</span></span> = <span class="frac"><span>1024 Кбайт</span><span
+                        class="symbol">/</span><span class="bottom">1.5 Кбайт/мин</span></span> ≈ 682.67 мин ≈ 40960
+                с<br>
+                Объём без сжатия: 2 × 32000 Гц × 16 бит × 40960 с = 41943040000 бит = 5000 Мбайт<br>
+                После сжатия: 5000 × 0.2 = 1000 Мбайт<br>
+                Количество фрагментов: <span class="frac"><span>1000</span><span class="symbol">/</span><span
+                        class="bottom">20</span></span> = 50<br><br>
+                Ответ: <span class="answer">50</span>.
+            </div>
+            <div class="source">Источник: Решу ЕГЭ</div>
+        </div>
+
+        <!-- Задача 8 -->
+        <div class="task">
+            <div class="task-title">ЗАДАНИЕ №8</div>
+            <div class="condition">
+                Маша скачивает из Интернета альбом любимой группы, оцифрованный в формате стерео с частотой
+                дискретизации 48000 Гц и разрешением 34 бит без использования сжатия. В альбоме 13 треков общей
+                длительностью 42 минуты 20
+                секунд.
+                Каждый трек содержит заголовок объёмом 110 Кбайт. Сколько секунд будет скачиваться альбом по каналу
+                связи со скоростью передачи данных 314572800 бит/с? В ответе запишите целую часть полученного числа.
+            </div>
+            <div class="solution-toggle">Показать решение</div>
+            <div class="solution">
+                Время звучания: 42 мин 20 с = 2540 с<br>
+                Объём звука: 2 × 48000 Гц × 34 бит × 2540 с = 8290590000 бит<br>
+                Объём заголовков: 13 × 110 Кбайт = 13 × 901120 бит = 11714560 бит<br>
+                Общее время: <span class="frac"><span>8290590000 + 11714560</span><span class="symbol">/</span><span
+                        class="bottom">314572800</span></span> ≈ 26,39 с ⇒ 26 с<br><br>
+                Ответ: <span class="answer">26</span>.
+            </div>
+            <div class="source">Источник: Решу ЕГЭ</div>
+        </div>
+
+        <!-- Задача 9 -->
+        <div class="task">
+            <div class="task-title">ЗАДАНИЕ №9</div>
+            <div class="condition">
+                Производится двухканальная (стерео) звукозапись с частотой дискретизации 64 кГц и 24-битным разрешением.
+                В результате был получен файл размером 220 Мбайт без учета заголовка и без сжатия данных.
+                Определите длительность звукозаписи в минутах. В качестве ответа укажите ближайшее к полученному времени
+                целое число.
+            </div>
+            <div class="solution-toggle">Показать решение</div>
+            <div class="solution">
+                Объём в битах: 220 Мбайт = 220 × 1024 × 1024 × 8 = 1845493760 бит<br>
+                Время: t = <span class="frac"><span>1845493760</span><span class="symbol">/</span><span class="bottom">2
+                        × 64000 × 24</span></span> ≈ 600.74 с ≈ 10 мин<br><br>
+                Ответ: <span class="answer">10</span>.
+            </div>
+            <div class="source">Источник: Решу ЕГЭ</div>
+        </div>
+    </div>
+
+    <div id="text" class="category-content">
+        <h2>Текстовые документы</h2>
+
+        <!-- Задача 1 -->
+        <div class="task">
+            <div class="task-title">ЗАДАНИЕ №1</div>
+            <div class="condition">
+                Запись о документе в информационной системе содержит его текст и отсканированную копию, полученную
+                сканированием с разрешением 150dpi
+                и сжатием полученного изображения на 20%. При этом текст документа занимает 50% всего объёма записи.
+                Сколько процентов объёма записи будет занимать текст документа, если заменить отсканированную копию на
+                новую, сделанную с разрешением 300dpi
+                и сжатием изображения на 40%?
+                В ответе запишите только число (количество процентов), без знака %.
+            </div>
+            <div class="solution-toggle">Показать решение</div>
+            <div class="solution">
+                Пусть x и y - количество пикселей по горизонтали и вертикали.<br>
+                Объём отсканированной копии: 150x × 150y × 0.8<br>
+                Объём текста: 150x × 150y × 0.8 (поскольку текст документа занимает 50% всего объёма записи, то размер
+                текста тоже равен 50%)<br>
+                Объём нового изображения: 300x × 300y × 0.6<br>
+                Общий объём нового документа: (300x × 300y × 0.6) + (150x × 150y × 0.8)<br>
+                Доля текста: <span class="frac"><span>150x × 150y × 0.8</span><span class="symbol">/</span><span
+                        class="bottom">(300x × 300y × 0.6) + (150x × 150y × 0.8)</span></span> = 0.25 ⇒ 25%<br><br>
+                Ответ: <span class="answer">25</span>.
+            </div>
+            <div class="source">Источник: Решу ЕГЭ</div>
+        </div>
+
+        <!-- Задача 2 -->
+        <div class="task">
+            <div class="task-title">ЗАДАНИЕ №2</div>
+            <div class="condition">
+                Скорость передачи данных через ADSL-соединение равна 128000 бит/с. Передача текстового файла через это
+                соединение заняла 1 минуту.
+                Определите, сколько символов содержал переданный текст, если известно, что он был представлен в
+                16-битной кодировке Unicode.
+            </div>
+            <div class="solution-toggle">Показать решение</div>
+            <div class="solution">
+                Объём переданной информации (все символы): I = v × t = 128000 бит/c × 60 с = 7680000 бит<br>
+                Количество символов: <span class="frac"><span>7680000 бит</span><span class="symbol">/</span><span
+                        class="bottom">16 бит</span></span> = 480000 символов<br><br>
+                Ответ: <span class="answer">480000</span>.
+            </div>
+            <div class="source">Источник: Решу ЕГЭ</div>
+        </div>
+
+        <!-- Задача 3 -->
+        <div class="task">
+            <div class="task-title">ЗАДАНИЕ №3</div>
+            <div class="condition">
+                У Васи есть доступ к Интернет по высокоскоростному одностороннему радиоканалу, обеспечивающему скорость
+                получения им информации 2<sup>17</sup> бит в секунду.
+                У Пети нет скоростного доступа в Интернет, но есть возможность получать информацию от Васи по
+                низкоскоростному телефонному каналу со средней скоростью 2<sup>16</sup> бит в секунду.
+                Петя договорился с Васей, что тот будет скачивать для него данные объёмом 8 Мбайт по высокоскоростному
+                каналу и ретранслировать их Пете по низкоскоростному каналу.
+                Компьютер Васи может начать ретрансляцию данных не раньше, чем им будут получены первые 1024 Кбайт этих
+                данных.
+                Каков минимально возможный промежуток времени (в секундах), с момента начала скачивания Васей данных, до
+                полного их получения Петей?
+            </div>
+            <div class="solution-toggle">Показать решение</div>
+            <div class="solution">
+                Время передачи первых 1024 Кбайт Васе:<br>
+                t<sub>1</sub> = <span class="frac"><span>1024 Кбайт</span><span class="symbol">/</span><span
+                        class="bottom">2<sup>17</sup> бит/с</span></span> = 64 с<br>
+                Время передачи всех 8 Мбайт Пете:<br>
+                t<sub>2</sub> = <span class="frac"><span>8 Мбайт</span><span class="symbol">/</span><span
+                        class="bottom">2<sup>16</sup> бит/с</span></span> = 1024 с<br>
+                Общее время: t = t<sub>1</sub> + t<sub>2</sub> = 64 + 1024 = 1088 с<br><br>
+                Ответ: <span class="answer">1088</span>.
+            </div>
+            <div class="source">Источник: Решу ЕГЭ</div>
+        </div>
+
+        <!-- Задача 4 -->
+        <div class="task">
+            <div class="task-title">ЗАДАНИЕ №4</div>
+            <div class="condition">
+                Документ объёмом 20 Мбайт можно передать с одного компьютера на другой двумя способами:<br>
+                А) сжать архиватором-1, передать архив по каналу связи, распаковать;<br>
+                Б) сжать архиватором-2, передать архив по каналу связи, распаковать;<br>
+                Какой способ быстрее и насколько, если<br>
+                - средняя скорость передачи данных по каналу связи составляет 2<sup>20</sup> бит в секунду,<br>
+                - объём документа, сжатого архиватором-1, равен 20% от исходного,<br>
+                - на сжатие документа архиватором-1 требуется 15 секунд, на распаковку - 2 секунды,<br>
+                - объём документа, сжатого архиватором-2, равен 10% от исходного,<br>
+                - на сжатие документа архиватором-2 требуется 20 секунд, на распаковку - 4 секунды?<br>
+                В ответе напишите букву А, если способ А быстрее или Б, если быстрее способ Б. Сразу после буквы
+                напишите количество секунд, насколько один способ быстрее другого.
+            </div>
+            <div class="solution-toggle">Показать решение</div>
+            <div class="solution">
+                <b>Способ А:</b><br>
+                Объём после сжатия: 20 Мбайт × 0.2 = 4 Мбайт<br>
+                Время передачи: <span class="frac"><span>4 Мбайт</span><span class="symbol">/</span><span
+                        class="bottom">2<sup>20</sup> бит/с</span></span> = 32 с<br>
+                Общее время: 15 с (сжатие) + 32 с (передача) + 2 с (распаковка) = 49 с<br><br>
+                <b>Способ Б:</b><br>
+                Объём после сжатия: 20 Мбайт × 0.1 = 2 Мбайт<br>
+                Время передачи: <span class="frac"><span>2 Мбайт</span><span class="symbol">/</span><span
+                        class="bottom">2<sup>20</sup> бит/с</span></span> = 16 с<br>
+                Общее время: 20 с (сжатие) + 16 с (передача) + 4 с (распаковка) = 40 с<br><br>
+                <b>Разница:</b><br>
+                49 с - 40 с = 9 с ⇒ способ Б быстрее на 9 секунд<br><br>
+                Ответ: <span class="answer">Б9</span>.
+            </div>
+            <div class="source">Источник: Решу ЕГЭ</div>
+        </div>
+    </div>
+
+    <div class="footer">
+        Сборник составил Евгений Мыльников<br>
+        Разработка сайта: DeepSeek
+    </div>
+
+    <script>
+        // Переключение между категориями
+        document.querySelectorAll('.category-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.category-content').forEach(c => c.classList.remove('active'));
+
+                tab.classList.add('active');
+                const categoryId = tab.getAttribute('data-category');
+                document.getElementById(categoryId).classList.add('active');
+            });
+        });
+
+        // Показать/скрыть решение
+        document.querySelectorAll('.solution-toggle').forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                const solution = toggle.nextElementSibling;
+                if (solution.style.display === 'block') {
+                    solution.style.display = 'none';
+                    toggle.textContent = 'Показать решение';
+                } else {
+                    solution.style.display = 'block';
+                    toggle.textContent = 'Скрыть решение';
+                }
+            });
+        });
+
+        // Модальное окно с теорией
+        const modal = document.getElementById("theoryModal");
+        const btn = document.getElementById("theoryBtn");
+        const span = document.getElementsByClassName("close")[0];
+
+        btn.onclick = function () {
+            modal.style.display = "block";
+        }
+
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+
+</html>
