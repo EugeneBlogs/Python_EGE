@@ -13,7 +13,8 @@ max_count = 0
 for el in s:
     if el.isdigit():
         count += f"{el}"
-        max_count = max(max_count, int(count))
+        if int(count) % 2 == 0:
+            max_count = max(max_count, int(count))
     else:
         count = ""
 print(max_count)
