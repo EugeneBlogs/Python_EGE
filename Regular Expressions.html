@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Конспект по регулярным выражениям</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Основные стили - тёмная тема с эффектом глубины */
+        body {
+            background-color: #0a0a0a;
+            color: #e0e0e0;
+            font-family: 'Source Code Pro', monospace;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            text-shadow: 0 0 10px rgba(224, 224, 224, 0.3);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Анимированный фон */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(33, 150, 243, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 80% 70%, rgba(76, 175, 80, 0.1) 0%, transparent 20%);
+            z-index: -1;
+            animation: float 15s infinite alternate ease-in-out;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(-10px, -10px);
+            }
+
+            100% {
+                transform: translate(10px, 10px);
+            }
+        }
+
+        /* Стили для заголовков */
+        h1 {
+            color: #4CAF50;
+            border-bottom: 1px solid #4CAF50;
+            padding-bottom: 10px;
+            font-size: 2.2em;
+            text-shadow: 0 0 15px rgba(76, 175, 80, 0.7);
+            margin-top: 40px;
+        }
+
+        h2 {
+            color: #2196F3;
+            margin-top: 30px;
+            font-size: 1.5em;
+            text-shadow: 0 0 10px rgba(33, 150, 243, 0.5);
+        }
+
+        /* Стили для определений */
+        strong {
+            color: #FF9800;
+            font-weight: normal;
+            text-shadow: 0 0 8px rgba(255, 152, 0, 0.4);
+        }
+
+        /* Выделение регулярных выражений в тексте */
+        .regex {
+            color: #FF5722;
+            font-weight: bold;
+        }
+
+        /* Стили для блоков кода */
+        pre {
+            background-color: #1e1e1e;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 20px 0;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 1;
+        }
+
+        code {
+            color: #9CDCFE;
+            font-family: 'Source Code Pro', monospace;
+        }
+
+        /* Стили для консольного вывода */
+        .console {
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            padding: 15px;
+            border-radius: 0 0 5px 5px;
+            margin-top: -15px;
+            border-left: 3px solid #4CAF50;
+            font-family: 'Source Code Pro', monospace;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Яркие заголовки методов */
+        .method-title {
+            color: #00BCD4;
+            font-size: 1.3em;
+            margin: 25px 0 10px 0;
+            text-shadow: 0 0 10px rgba(0, 188, 212, 0.5);
+            font-weight: bold;
+        }
+
+        /* Цвета для разных элементов кода */
+        .keyword {
+            color: #569CD6;
+        }
+
+        .string {
+            color: #CE9178;
+        }
+
+        .comment {
+            color: #6A9955;
+        }
+
+        .function {
+            color: #DCDCAA;
+        }
+
+        .number {
+            color: #B5CEA8;
+        }
+
+        /* Подпись внизу */
+        .signature {
+            margin-top: 50px;
+            text-align: center;
+            color: #757575;
+            font-size: 0.9em;
+        }
+
+        .signature div {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <h1># КОНСПЕКТ ПО РЕГУЛЯРНЫМ ВЫРАЖЕНИЯМ</h1>
+
+    <h2>## Общая информация:</h2>
+    <p><strong>любое слово</strong> - проверка, есть ли это слово в строке.</p>
+    <p><strong>^</strong> - начало строки (например: <span class="regex">^Привет</span> - cлово "Привет" стоит в начале
+        строки).</p>
+    <p><strong>$</strong> - конец строки (например: <span class="regex">Пока$</span> - cлово "Пока" стоит в конце
+        строки).</p>
+    <p><strong>\b</strong> - начало и конец слова (например: <span class="regex">\bPy</span> - cлова, начинающиеся с
+        "Py"; <span class="regex">py\b</span> - Слова, заканчивающиеся на "py").</p>
+    <p><strong>|</strong> - ИЛИ (например: <span class="regex">Привет|Пока</span> - cлово "Привет" или "Пока" есть в
+        строке (или оба сразу)).</p>
+    <p><strong>[ ... ]</strong> - перечисление символов (любой символ из скобок) (например: <span
+            class="regex">[.,!?]</span> - указывает на любой символ пунктуации).</p>
+
+    <h2>## Range (диапозоны, отрезки):</h2>
+    <p><strong>[0-9]</strong> - одна любая цифр от 0 до 9.</p>
+    <p><strong>[a-z]</strong> - одна любая буква от "a" до "z".</p>
+    <p><strong>[a-zA-z]</strong> - одна любая буква от "a" до "z" в верхнем или нижнем регистре.</p>
+    <p><strong>[0-9a-z]</strong> - одна любая цифр от 0 до 9 или одна любая буква от "a" до "z".</p>
+    <p><strong>[0-9a-z!#]</strong> - одна любая цифр от 0 до 9, или одна любая буква от "a" до "z", или "!", или "#".
+    </p>
+    <hr>
+    <p><strong>^ в []</strong> - будет означать отрицание:</p>
+    <p><strong>[^0-9]</strong> - один любой символ, кроме цифр от 0 до 9.</p>
+    <p><strong>[^0-9a-z]</strong> - один любой символ, кроме цифр от 0 до 9 и букв от "a" до "z".</p>
+    <p><strong>\b[^ABC]</strong> - слово, которое начинается с любой буквы, кроме "A", "B", "C".</p>
+
+    <h2>## Квантификаторы:</h2>
+    <p><strong>[0-9]</strong> - одна любая цифра.</p>
+    <p><strong>[0-9]{3}</strong> - три любых цифры подряд.</p>
+    <p><strong>[0-9]{3,5}</strong> - от трёх до пяти любых цифр подряд.</p>
+    <p class="regex">ВМЕСТО 3 и 5 могут стоять любые другие цифры.</p>
+
+    <h2>## Сокращения:</h2>
+    <p><strong>\d</strong> - любая цифра (сокращение от <span class="regex">[0-9]</span>).</p>
+    <p><strong>\D</strong> - любая не цифра (сокращение от <span class="regex">[^0-9]</span>).</p>
+    <p><strong>\w</strong> - любой алфавитно-цифровой символ или "_" (сокращение от <span
+            class="regex">[a-zA-zа-яА-Я0-9_]</span>).</p>
+    <p><strong>\W</strong> - любой не алфавитно-цифровой символ или не "_" (сокращение от <span
+            class="regex">[^a-zA-zа-яА-Я0-9_]</span>).</p>
+    <p><strong>\s</strong> - пробельный символ (табуляция и разрыв строки) (сокращение от <span class="regex">[
+            ]</span>).</p>
+    <p><strong>\S</strong> - любой непробельный символ (сокращение от <span class="regex">[^ ]</span>).</p>
+    <p><strong>.</strong> - один любой символ.</p>
+    <p><strong>[0-9]*</strong> - от 0 до бесконечности цифр подряд (сокращение от <span class="regex">[0-9]{0,}</span>).
+    </p>
+    <p><strong>[0-9]+</strong> - от 1 до бесконечности цифр подряд (сокращение от <span class="regex">[0-9]{1,}</span>).
+    </p>
+    <p><strong>[0-9]?</strong> - от 0 до 1 до бесконечности цифр подряд (сокращение от <span
+            class="regex">[0-9]{0,1}</span>).</p>
+
+    <h2>## Другое:</h2>
+    <p>Специальные символы <span class="regex">+ * ? { } ( ) \</span> необходимо экранировать с помощью дополнительно
+        знака <span class="regex">\</span> перед символом.</p>
+    <hr>
+    <p>Группы обозначаются с помощью <span class="regex">()</span>, которым с помощью <span class="regex">\n</span> или
+        <span class="regex">$n</span> можно задать номер (n - любое число или название).</p>
+    <p><strong>(.*?)</strong> - любой текст.</p>
+    <p><strong>(.+) или (.*)</strong> - жадный поиск (до последнего вхождения шаблона).</p>
+    <p><strong>(.+?) или (.*?)</strong> - ленивый поиск (до первого вхождения шаблона).</p>
+    <hr>
+    <p><strong>X(?=Y)</strong> - позитивная опережающая проверка - найти X если за ним следует Y.</p>
+    <p><strong>X(?|Y)</strong> - негативная опережающая проверка - найти X если за ним НЕ следует Y.</p>
+    <p><strong>(?<=Y)X< /strong> - позитивная ретроспективная проверка - найти X если перед ним стоит Y.</p>
+    <p><strong>(?<|Y)X< /strong> - негативная ретроспективная проверка - найти X если перед ним НЕ стоит Y.</p>
+
+    <h2>## Примеры:</h2>
+    <p><strong>^[!/]бот</strong> - строка начинается с "!" или "/", а затем идёт слово "бот".</p>
+    <p><strong>№\d</strong> - символ номера, а затем любая цифра.</p>
+    <p><strong>\+|\-?\d+</strong> - знак плюса или знак минуса появляются от 0 до 1 раза, затем идёт минимум одна цифра.
+    </p>
+    <p><strong>(\d+)(\s?)(\$|€|₽)</strong> - все цены из текста: 1) минимум 1 цифра; 2) 0 или 1 пробел; 3) любой знак
+        валюты.</p>
+    <p><strong>\d+(\.|,)?\d*</strong> - все числа (целые и дробные): 1) минимум 1 цифра; 2) может быть "." или ",", если
+        число дробное; 3) либо будут цифры, если число дробное, либо нет, если целое.</p>
+
+    <h1>БИБЛИОТЕКА "RE" в PYTHON</h1>
+    <p>1. Поиск подстроки в строке (search, match).</p>
+    <p>2. Поиск всех подходящих строк (findall, finditer).</p>
+    <p>3. Разделение строки на подстроки (split).</p>
+    <p>4. Замена части строки (sub).</p>
+
+    <h2>Примеры:</h2>
+    <div class="method-title">Метод re.search:</div>
+    <pre><code><span class="keyword">import</span> re
+
+text = <span class="string">"Name: Evgeniy. Birthday: 31 August, 2008"</span>
+reg = <span class="string">r"Name: ([a-zA-Z]+)\. Birthday: (\d+) ([a-zA-z]+), (\d+)"</span>
+match = re.search(reg, text)
+<span class="keyword">if</span> match:
+    <span class="keyword">print</span>(<span class="string">f"Группа 1 - имя: {match.group(1)}"</span>)
+    <span class="keyword">print</span>(<span class="string">f"Группа 2 - день: {match.group(2)}"</span>)
+    <span class="keyword">print</span>(<span class="string">f"Группа 3 - месяц: {match.group(3)}"</span>)
+    <span class="keyword">print</span>(<span class="string">f"Группа 4 - год: {match.group(4)}"</span>)</code></pre>
+    <div class="console">Группа 1 - имя: Evgeniy<br>
+        Группа 2 - день: 31<br>
+        Группа 3 - месяц: August<br>
+        Группа 4 - год: 2008</div>
+
+    <div class="method-title">Метод re.match:</div>
+    <pre><code><span class="keyword">import</span> re
+
+text1 = <span class="string">"my_py1thon3!pass"</span>
+match = re.match(<span class="string">r"^[a-zA-Z0-9_\-!?]{8,16}$"</span>, text1)
+<span class="keyword">if</span> match:
+    <span class="keyword">print</span>(<span class="string">f"Пароль надёжный."</span>)
+<span class="keyword">else</span>:
+    <span class="keyword">print</span>(<span class="string">"Пароль ненадёжный."</span>)
+
+text2 = <span class="string">"python"</span>
+match = re.match(<span class="string">r"^[a-zA-Z0-9_\-!?]{8,16}$"</span>, text2)
+<span class="keyword">if</span> match:
+    <span class="keyword">print</span>(<span class="string">f"Пароль надёжный."</span>)
+<span class="keyword">else</span>:
+    <span class="keyword">print</span>(<span class="string">"Пароль ненадёжный."</span>)</code></pre>
+    <div class="console">Пароль надёжный.<br>
+        Пароль ненадёжный.</div>
+
+    <div class="method-title">Метод re.sub:</div>
+    <pre><code><span class="keyword">import</span> re
+
+text = <span class="string">"25 * 4 = 100"</span>
+reg = <span class="string">r"\d+"</span>
+replacement = <span class="string">"***"</span>
+new_text = re.sub(reg, replacement, text)
+<span class="keyword">print</span>(<span class="string">f"Новая строка: {new_text}"</span>)</code></pre>
+    <div class="console">Новая строка: *** * *** = ***</div>
+
+    <div class="method-title">Метод re.split:</div>
+    <pre><code><span class="keyword">import</span> re
+
+text = <span class="string">"Python, JavaScript, C#, Pascal"</span>
+list_text = re.split(<span class="string">r","</span>, text)
+<span class="keyword">print</span>(<span class="string">f"Список: {list_text}"</span>)</code></pre>
+    <div class="console">Список: ['Python', ' JavaScript', ' C#', ' Pascal']</div>
+
+    <div class="method-title">Метод re.findall:</div>
+    <pre><code><span class="keyword">import</span> re
+
+text = <span class="string">'''
+&lt;div&gt;
+    &lt;h1&gt;Заголовок 1&lt;/h1&gt;
+    &lt;h2&gt;Заголовок 2&lt;/h2&gt;
+    &lt;p&gt;Параграф&lt;/p&gt;
+&lt;/div&gt;
+'''</span>
+reg = <span class="string">r"&lt;([a-z0-9]+)&gt;"</span>
+tags = re.findall(reg, text)
+<span class="keyword">print</span>(<span class="string">f"Теги: {tags}"</span>)</code></pre>
+    <div class="console">Теги: ['div', 'h1', 'h2', 'p']</div>
+
+    <div class="signature">
+        <div>Конспект составил Евгений Мыльников.</div>
+        <div>Сайт разработал: DeepSeek.</div>
+    </div>
+</body>
+
+</html>
