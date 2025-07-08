@@ -58,6 +58,39 @@
             font-size: 2.2em;
             text-shadow: 0 0 15px rgba(76, 175, 80, 0.7);
             margin-top: 40px;
+            position: relative;
+        }
+
+        h1::after {
+            content: ">>>";
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(76, 175, 80, 0.3);
+            font-size: 0.8em;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 20px;
+            background: #4CAF50;
+            vertical-align: middle;
+            margin-left: 2px;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
         }
 
         h2 {
@@ -90,6 +123,16 @@
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
             position: relative;
             z-index: 1;
+        }
+
+        pre::after {
+            content: "Python";
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            color: rgba(76, 175, 80, 0.3);
+            font-size: 0.7em;
+            font-style: italic;
         }
 
         code {
@@ -150,11 +193,96 @@
         .signature div {
             margin: 5px 0;
         }
+
+        /* Стили для онлайн-компилятора */
+        .compiler-container {
+            margin-top: 50px;
+            border-top: 1px solid #333;
+            padding-top: 20px;
+        }
+
+        .compiler-title {
+            color: #4CAF50;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            text-align: center;
+            border-bottom: 1px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+
+        .compiler-description {
+            text-align: center;
+            margin-bottom: 15px;
+            color: #aaa;
+            font-size: 0.9em;
+        }
+
+        .compiler-api {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        .compiler-editor {
+            width: 100%;
+            height: 200px;
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+            border: 1px solid #333;
+            padding: 10px;
+            font-family: 'Source Code Pro', monospace;
+            font-size: 14px;
+            resize: vertical;
+            border-radius: 5px 5px 0 0;
+        }
+
+        .compiler-output {
+            width: 100%;
+            height: 150px;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            border: 1px solid #333;
+            border-top: none;
+            padding: 10px;
+            font-family: 'Source Code Pro', monospace;
+            overflow-y: auto;
+            border-radius: 0 0 5px 5px;
+            border-left: 3px solid #4CAF50;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .compiler-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px 0;
+            cursor: pointer;
+            border-radius: 5px;
+            font-family: 'Source Code Pro', monospace;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            display: block;
+            width: 120px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .compiler-btn:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .compiler-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+        }
     </style>
 </head>
 
 <body>
-    <h1># КОНСПЕКТ ПО РЕГУЛЯРНЫМ ВЫРАЖЕНИЯМ</h1>
+    <h1># КОНСПЕКТ ПО РЕГУЛЯРНЫМ ВЫРАЖЕНИЯМ <span class="cursor"></span></h1>
 
     <h2>## Общая информация:</h2>
     <p><strong>любое слово</strong> - проверка, есть ли это слово в строке.</p>
@@ -172,7 +300,7 @@
     <h2>## Range (диапозоны, отрезки):</h2>
     <p><strong>[0-9]</strong> - одна любая цифр от 0 до 9.</p>
     <p><strong>[a-z]</strong> - одна любая буква от "a" до "z".</p>
-    <p><strong>[a-zA-z]</strong> - одна любая буква от "a" до "z" в верхнем или нижнем регистре.</p>
+    <p><strong>[a-zA-Z]</strong> - одна любая буква от "a" до "z" в нижнем или верхнем регистре.</p>
     <p><strong>[0-9a-z]</strong> - одна любая цифр от 0 до 9 или одна любая буква от "a" до "z".</p>
     <p><strong>[0-9a-z!#]</strong> - одна любая цифр от 0 до 9, или одна любая буква от "a" до "z", или "!", или "#".
     </p>
@@ -199,27 +327,28 @@
             ]</span>).</p>
     <p><strong>\S</strong> - любой непробельный символ (сокращение от <span class="regex">[^ ]</span>).</p>
     <p><strong>.</strong> - один любой символ.</p>
+    <hr>
     <p><strong>[0-9]*</strong> - от 0 до бесконечности цифр подряд (сокращение от <span class="regex">[0-9]{0,}</span>).
     </p>
     <p><strong>[0-9]+</strong> - от 1 до бесконечности цифр подряд (сокращение от <span class="regex">[0-9]{1,}</span>).
     </p>
-    <p><strong>[0-9]?</strong> - от 0 до 1 до бесконечности цифр подряд (сокращение от <span
-            class="regex">[0-9]{0,1}</span>).</p>
+    <p><strong>[0-9]?</strong> - от 0 до 1 цифр (сокращение от <span class="regex">[0-9]{0,1}</span>).</p>
 
     <h2>## Другое:</h2>
     <p>Специальные символы <span class="regex">+ * ? { } ( ) \</span> необходимо экранировать с помощью дополнительно
         знака <span class="regex">\</span> перед символом.</p>
     <hr>
     <p>Группы обозначаются с помощью <span class="regex">()</span>, которым с помощью <span class="regex">\n</span> или
-        <span class="regex">$n</span> можно задать номер (n - любое число или название).</p>
+        <span class="regex">$n</span> можно задать номер (n - любое число или название).
+    </p>
     <p><strong>(.*?)</strong> - любой текст.</p>
     <p><strong>(.+) или (.*)</strong> - жадный поиск (до последнего вхождения шаблона).</p>
     <p><strong>(.+?) или (.*?)</strong> - ленивый поиск (до первого вхождения шаблона).</p>
     <hr>
     <p><strong>X(?=Y)</strong> - позитивная опережающая проверка - найти X если за ним следует Y.</p>
     <p><strong>X(?|Y)</strong> - негативная опережающая проверка - найти X если за ним НЕ следует Y.</p>
-    <p><strong>(?<=Y)X< /strong> - позитивная ретроспективная проверка - найти X если перед ним стоит Y.</p>
-    <p><strong>(?<|Y)X< /strong> - негативная ретроспективная проверка - найти X если перед ним НЕ стоит Y.</p>
+    <p><strong>(?<=Y)X</strong> - позитивная ретроспективная проверка - найти X если перед ним стоит Y.</p>
+    <p><strong>(?<|Y)X</strong> - негативная ретроспективная проверка - найти X если перед ним НЕ стоит Y.</p>
 
     <h2>## Примеры:</h2>
     <p><strong>^[!/]бот</strong> - строка начинается с "!" или "/", а затем идёт слово "бот".</p>
@@ -231,14 +360,14 @@
     <p><strong>\d+(\.|,)?\d*</strong> - все числа (целые и дробные): 1) минимум 1 цифра; 2) может быть "." или ",", если
         число дробное; 3) либо будут цифры, если число дробное, либо нет, если целое.</p>
 
-    <h1>БИБЛИОТЕКА "RE" в PYTHON</h1>
+    <h1># БИБЛИОТЕКА "RE" В PYTHON <span class="cursor"></span></h1>
     <p>1. Поиск подстроки в строке (search, match).</p>
     <p>2. Поиск всех подходящих строк (findall, finditer).</p>
     <p>3. Разделение строки на подстроки (split).</p>
     <p>4. Замена части строки (sub).</p>
 
-    <h2>Примеры:</h2>
-    <div class="method-title">Метод re.search:</div>
+    <h2>## Примеры:</h2>
+    <div class="method-title">### Метод re.search:</div>
     <pre><code><span class="keyword">import</span> re
 
 text = <span class="string">"Name: Evgeniy. Birthday: 31 August, 2008"</span>
@@ -254,7 +383,7 @@ match = re.search(reg, text)
         Группа 3 - месяц: August<br>
         Группа 4 - год: 2008</div>
 
-    <div class="method-title">Метод re.match:</div>
+    <div class="method-title">### Метод re.match:</div>
     <pre><code><span class="keyword">import</span> re
 
 text1 = <span class="string">"my_py1thon3!pass"</span>
@@ -273,17 +402,17 @@ match = re.match(<span class="string">r"^[a-zA-Z0-9_\-!?]{8,16}$"</span>, text2)
     <div class="console">Пароль надёжный.<br>
         Пароль ненадёжный.</div>
 
-    <div class="method-title">Метод re.sub:</div>
+    <div class="method-title">### Метод re.sub:</div>
     <pre><code><span class="keyword">import</span> re
 
-text = <span class="string">"25 * 4 = 100"</span>
+text = <span class="string">"150 + 150 = 300"</span>
 reg = <span class="string">r"\d+"</span>
 replacement = <span class="string">"***"</span>
 new_text = re.sub(reg, replacement, text)
 <span class="keyword">print</span>(<span class="string">f"Новая строка: {new_text}"</span>)</code></pre>
-    <div class="console">Новая строка: *** * *** = ***</div>
+    <div class="console">Новая строка: *** + *** = ***</div>
 
-    <div class="method-title">Метод re.split:</div>
+    <div class="method-title">### Метод re.split:</div>
     <pre><code><span class="keyword">import</span> re
 
 text = <span class="string">"Python, JavaScript, C#, Pascal"</span>
@@ -291,7 +420,7 @@ list_text = re.split(<span class="string">r","</span>, text)
 <span class="keyword">print</span>(<span class="string">f"Список: {list_text}"</span>)</code></pre>
     <div class="console">Список: ['Python', ' JavaScript', ' C#', ' Pascal']</div>
 
-    <div class="method-title">Метод re.findall:</div>
+    <div class="method-title">### Метод re.findall:</div>
     <pre><code><span class="keyword">import</span> re
 
 text = <span class="string">'''
@@ -306,10 +435,80 @@ tags = re.findall(reg, text)
 <span class="keyword">print</span>(<span class="string">f"Теги: {tags}"</span>)</code></pre>
     <div class="console">Теги: ['div', 'h1', 'h2', 'p']</div>
 
+    <!-- Онлайн-компилятор Python -->
+    <div class="compiler-container">
+        <div class="compiler-title">Онлайн-компилятор Python</div>
+        <div class="compiler-description">
+            Здесь вы можете попробовать написать любой код на языке Python, включая регулярные выражения, а также любые
+            другие библиотеки.<br>
+            Работает на базе <span class="compiler-api">Piston API (emkc.org)</span>
+        </div>
+        <textarea id="python-code" class="compiler-editor" placeholder="Введите ваш Python код здесь..."># Условие задания КИМ 24 (Досрок 2025):
+'''
+Текстовый файл состоит из десятичных цифр и заглавных букв латинского алфавита.
+Определите в этом файле последовательность идущих подряд символов, представляющих
+собой запись максимального чётного 14-ричного числа. В ответе запишите
+количество символов (значащих цифр в записе числа) в этой последовательности.
+'''
+
+import re  # Импортируем библиотеку регулярных выражений
+
+# Некоторая часть файла из задания
+s = '''0490125347609882501643970430256918705326178049830825016439704302569187053261780490125347609808506413927002865719430635902481708651342709079801423650402539816707906315248086394251070678129504305234179608035961804270821364059701372698045067129805340015289436708740692135050843729160516329704805196783024060948135270672435981003420817965010894635270910853247607965218304094576128300528361470909130658742082501643970430256918705326178049012534760980850641392700286571943063590248170865134270907980142365040253981670790631524808639425107067812950430523417960803596180427082136405970137269804506712980534001528943670874069213505084372916051632970480519678302406094813527067243598100342081796501089463527VW0825016439704302569187053261780490125347609808506413927002865719430635902481708651342709079801423650402539816707906315248086394251070678129504305234179608035961804270821364059701372698045067129805340015289436708740692135050843729160516329704805196783024060948135270825016439704302569187053261780490125347609808506413927082501643970430256918705326178049012534760980850641392700286571943063590248170865134270907980142365040253981670790631524808639425107067812950430523417960803596180427082136405970137269804506712980534001528943670874069213508250164397043025691870532617804901253476098085064139270028657194306359024817GMI082501643970430256918705326178049012534760980850641392700286571943063590248170865134270907980142365040253981670790631524808639425107067812950431082501643970430256918705326178049012534760980850641392700286571943063590248170865134270907980142365040253981670790631524808639425107B082501643970430256918705326178049012534760980850641392700286571943063590248170865134270907980142365040253981670790631524808639425107067812950430523417960803596180427082136405970137269804506712980534001528943670874069213505084372916051632970480519678302472005082501643970430256918705326178049012534760980850641392700286571943063590248170865134270907980142365040253981670790631524808639425107067812950430523417960803596180427082136405970137269804506712980534001528943670874069213505084372916051632970480519678302406094813527067243598100342081796501089463527091085324760796521830409457612830PG08250164397043025691870825016439704302569187053261780490125347609808506413927002865719433Y082501643970430256918705326178049012534760980850641392700286571943063590248170865134270907980142365M082501643970430256918705326178049012534760980850641392700286571943063590248170865134270907980142365040253981670790631524808639425107067812950430523417960803596180427082136405970137269804506712980534BKVC0825016439704302569187053261780490125347609808506413927002865719430635902481708651342709079801423650402539816707906315248086394251070678129504305234179608035961804270821364059701372698045067129805340015289436708740692135050843729160516329704805196783024060948135270672435981003420817965010894635270910853247607965218304094576'''
+# Последовательности, которые подходят под условие (регулярное выражение, строка поиска)
+valid_list = re.findall(r"[123456789ABCD][0123456789ABCD]*[02468AC]", s)
+print(len(max(valid_list, key=len)))  # Выводим длину наибольшего по длине числа</textarea>
+        <button id="run-btn" class="compiler-btn">Запустить</button>
+        <div id="output" class="compiler-output">Результат выполнения появится здесь...</div>
+    </div>
+
     <div class="signature">
         <div>Конспект составил Евгений Мыльников.</div>
         <div>Сайт разработал: DeepSeek.</div>
     </div>
+
+    <script>
+        // Реализация простого онлайн-компилятора Python
+        document.getElementById('run-btn').addEventListener('click', async () => {
+            const code = document.getElementById('python-code').value;
+            const outputDiv = document.getElementById('output');
+
+            outputDiv.textContent = "Выполнение...";
+
+            try {
+                // Используем API для выполнения Python кода
+                const response = await fetch('https://emkc.org/api/v2/piston/execute', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        language: 'python',
+                        version: '3.10.0',
+                        files: [{
+                            content: code
+                        }]
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.run) {
+                    if (result.run.stdout) {
+                        outputDiv.textContent = result.run.stdout;
+                    } else if (result.run.stderr) {
+                        outputDiv.textContent = "Ошибка:\n" + result.run.stderr;
+                    } else {
+                        outputDiv.textContent = "Код выполнен, но нет вывода.";
+                    }
+                } else {
+                    outputDiv.textContent = "Ошибка выполнения: " + (result.message || "неизвестная ошибка");
+                }
+            } catch (error) {
+                outputDiv.textContent = "Ошибка подключения к компилятору: " + error.message;
+            }
+        });
+    </script>
 </body>
 
 </html>
