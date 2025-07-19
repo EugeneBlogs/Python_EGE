@@ -14,6 +14,10 @@ from ipaddress import *
 ip_net = ip_network("252.67.33.87/255.248.0.0", 0)
 answer = 0
 for ip_add in ip_net:
+    '''
+    IP-адрес состоит из 4 байт (1 байт = 8 бит = 8 цифр).
+    То есть первые 16 цифр - это левые 2 байта, а последние 16 - правые 2 байта.
+    '''
     if f"{ip_add:b}"[16:].count("1") / f"{ip_add:b}"[:16].count("1") > 2:
         answer += 1
 print(answer)
