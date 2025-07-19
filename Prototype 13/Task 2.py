@@ -12,7 +12,9 @@
 '''
 
 from ipaddress import *
+
 for mask in range(33):
+    # Маску также можно задавать, указав просто количество единиц
     net = ip_network(f"203.86.7.230/{mask}", 0)
     if str(net) == f"203.86.0.0/{mask}":
         print(32 - mask)
