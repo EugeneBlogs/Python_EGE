@@ -10,5 +10,5 @@ s = s.split("T")
 result = 10 ** 10
 for i in range(len(s) - 208):
     r = "T" + "T".join(s[i:i + 209]) + "T"
-    mini = min(result, len(r))
+    result = min(result, len(r))
 print(result)
