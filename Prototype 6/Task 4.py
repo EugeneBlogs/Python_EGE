@@ -35,9 +35,6 @@ for _ in range(2):
 end_fill()
 penup()
 
-end_fill()
-penup()
-
 count = 0
 canvas = getcanvas()
 for x in range(-500, 500):
