@@ -35,13 +35,13 @@ for n in range(800_000 - 1, 800_000 - 1000, -1):
 count = 0
 for n in range(500_000 + 1, 500_000 + 1000):
     R = 0
-    for i in range(2, int(n ** 0.5)+1):
+    for i in range(2, int(n ** 0.5) + 1):
         if i ** 2 == n:
             R += i
         elif n % i == 0:
             R += i
             R += (n // i)
-    if R % 10 == 7: # Проверка, чтобы оканчивалось на 7
+    if R % 10 == 7:  # Проверка, чтобы оканчивалось на 7
         print(n, R)
         count += 1
     if count == 5:
@@ -62,14 +62,19 @@ for n in range(500_000 + 1, 500_000 + 1000):
 '''
 
 result = []
-num = 300000001
-while len(result) != 5:
-    count = 0
-    for i in range(2, num // 2 + 1):
-        if num % i == 0:
-            count += 1
-            if count == 5:
-                result.append(num // i)
-                break
+num = 300_000_000 + 1
+while len(result) < 5:
+    divisors = []
+    for i in range(2, int(num ** 0.5) + 1):
+        if i ** 2 == num:
+            divisors.append(i)
+        elif num % i == 0:
+            divisors.append(i)
+            divisors.append(num // i)
+    divisors = sorted(list(set(divisors)), reverse=True)  # Убираем дубликаты и сортируем
+
+    if len(divisors) >= 5:
+        result.append(divisors[4])  # Пятый по величине делитель
+
     num += 1
-print(result)
+print(*result)
