@@ -34,7 +34,7 @@ K = int(f.readline())  # Количество ячеек
 N = int(f.readline())  # Количество человек
 count = 0  # Количество положенных багажей
 max_cell = 0  # Номер последней занятой ячейки
-cells = [0] * K  # Учейки
+cells = [0] * K  # Ячейки
 luggage = [list(map(int, s.split())) for s in f]  # Багажи (пары: начальная минута и конечная минута)
 luggage.sort()
 # Проходимся по багажам и ячейкам
@@ -51,3 +51,4 @@ for i in range(len(luggage)):
             max_cell = j + 1  # Номер ячейки начинается с единицы
             break
 print(count, max_cell)
+
