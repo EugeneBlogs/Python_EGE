@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Дополнительные материалы</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
-        
+
         body {
             font-family: 'JetBrains Mono', monospace;
             background-color: #0a0a0a;
@@ -20,7 +21,7 @@
             overflow: hidden;
             position: relative;
         }
-        
+
         .container {
             position: relative;
             z-index: 10;
@@ -33,7 +34,7 @@
             backdrop-filter: blur(5px);
             border: 1px solid rgba(79, 195, 247, 0.3);
         }
-        
+
         h1 {
             font-size: 1.8rem;
             margin-bottom: 1.5rem;
@@ -42,7 +43,7 @@
             text-shadow: 0 0 10px rgba(79, 195, 247, 0.5);
             position: relative;
         }
-        
+
         h1::after {
             content: '';
             position: absolute;
@@ -53,14 +54,14 @@
             height: 2px;
             background: linear-gradient(90deg, transparent, #4fc3f7, transparent);
         }
-        
+
         .links {
             display: flex;
             flex-direction: column;
             gap: 1rem;
             margin-bottom: 2rem;
         }
-        
+
         .link {
             display: block;
             padding: 0.8rem 1rem;
@@ -74,7 +75,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .link::before {
             content: '';
             position: absolute;
@@ -89,7 +90,7 @@
             opacity: 0;
             transition: all 0.3s ease;
         }
-        
+
         .link:hover {
             background-color: rgba(30, 136, 229, 0.2);
             border-color: #4fc3f7;
@@ -97,12 +98,86 @@
             box-shadow: 0 4px 12px rgba(0, 150, 255, 0.3);
             color: #fff;
         }
-        
+
         .link:hover::before {
             opacity: 0.3;
             animation: gradient 3s ease infinite;
         }
-        
+
+        /* Стиль для кнопки HARDCORE */
+        .link-hardcore {
+            display: block;
+            padding: 0.8rem 1rem;
+            background-color: rgba(60, 20, 0, 0.7);
+            border: 1px solid #ff4500;
+            border-radius: 6px;
+            color: #ff8c00;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            font-weight: bold;
+            text-shadow: 0 0 5px rgba(255, 69, 0, 0.5);
+        }
+
+        .link-hardcore::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            z-index: -1;
+            background: linear-gradient(45deg, #ff4500, #ff8c00, #ff4500);
+            background-size: 200% 200%;
+            border-radius: 6px;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .link-hardcore:hover {
+            background-color: rgba(255, 69, 0, 0.2);
+            border-color: #ff8c00;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(255, 69, 0, 0.4);
+            color: #fff;
+            animation: flame 0.5s ease infinite alternate;
+        }
+
+        .link-hardcore:hover::before {
+            opacity: 0.4;
+            animation: gradient 2s ease infinite, sparkle 0.3s ease infinite;
+        }
+
+        @keyframes flame {
+            0% {
+                text-shadow: 0 0 5px #ff4500, 0 0 10px #ff4500, 0 0 15px #ff4500;
+            }
+
+            50% {
+                text-shadow: 0 0 7px #ff8c00, 0 0 14px #ff8c00, 0 0 21px #ff8c00;
+            }
+
+            100% {
+                text-shadow: 0 0 10px #ff4500, 0 0 20px #ff4500, 0 0 30px #ff4500;
+            }
+        }
+
+        @keyframes sparkle {
+            0% {
+                box-shadow: 0 0 5px rgba(255, 140, 0, 0.5);
+            }
+
+            50% {
+                box-shadow: 0 0 10px rgba(255, 69, 0, 0.7), 0 0 20px rgba(255, 140, 0, 0.3);
+            }
+
+            100% {
+                box-shadow: 0 0 15px rgba(255, 69, 0, 0.5), 0 0 30px rgba(255, 140, 0, 0.2);
+            }
+        }
+
         .footer-link {
             display: block;
             margin-top: 2rem;
@@ -117,13 +192,13 @@
             border: 1px solid rgba(130, 177, 255, 0.3);
             position: relative;
         }
-        
+
         .footer-link:hover {
             background-color: rgba(25, 118, 210, 0.4);
             color: #bbdefb;
             box-shadow: 0 0 15px rgba(130, 177, 255, 0.3);
         }
-        
+
         .code-bg {
             position: absolute;
             top: 0;
@@ -133,7 +208,7 @@
             opacity: 0.15;
             overflow: hidden;
         }
-        
+
         .code-line {
             position: absolute;
             color: rgba(100, 255, 100, 0.7);
@@ -144,30 +219,41 @@
             animation: float 15s linear infinite;
             text-shadow: 0 0 5px rgba(100, 255, 100, 0.5);
         }
-        
+
         @keyframes float {
             0% {
                 transform: translateY(100vh) rotate(0deg);
                 opacity: 0;
             }
+
             10% {
                 opacity: 0.7;
             }
+
             90% {
                 opacity: 0.7;
             }
+
             100% {
                 transform: translateY(-100px) rotate(360deg);
                 opacity: 0;
             }
         }
-        
+
         @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
         }
-        
+
         /* Сетка из точек */
         .grid-dots {
             position: absolute;
@@ -179,7 +265,7 @@
             background-size: 20px 20px;
             z-index: -1;
         }
-        
+
         /* Анимированный курсор */
         .cursor-effect {
             position: absolute;
@@ -193,7 +279,7 @@
             mix-blend-mode: screen;
             transition: transform 0.1s ease;
         }
-        
+
         /* Эффект частиц при клике */
         .click-particle {
             position: absolute;
@@ -205,12 +291,13 @@
             z-index: 999;
             animation: particle-fade 1s ease-out forwards;
         }
-        
+
         @keyframes particle-fade {
             0% {
                 transform: translate(0, 0) scale(1);
                 opacity: 1;
             }
+
             100% {
                 transform: translate(var(--tx), var(--ty)) scale(0);
                 opacity: 0;
@@ -218,20 +305,23 @@
         }
     </style>
 </head>
+
 <body>
     <div class="grid-dots"></div>
     <div class="code-bg" id="codeBackground"></div>
     <div class="cursor-effect" id="cursor"></div>
-    
+
     <div class="container">
         <h1>Дополнительные материалы</h1>
-        
+
         <div class="links">
             <a href="Prototype 7.html" target="_blank" class="link">Задание №7 из ЕГЭ по информатике</a>
             <a href="Regular Expressions.html" target="_blank" class="link">Конспект по регулярным выражениям</a>
+            <a href="Hardcore.html" target="_blank" class="link-hardcore">HARDCORE ЕГЭ ПО ИНФОРМАТИКЕ</a>
         </div>
-        
-        <a href="https://github.com/EugeneBlogs/Python_EGE" target="_blank" class="footer-link">Полезные материалы для подготовки к ЕГЭ по информатике</a>
+
+        <a href="https://github.com/EugeneBlogs/Python_EGE" target="_blank" class="footer-link">Полезные материалы для
+            подготовки к ЕГЭ по информатике</a>
     </div>
 
     <script>
@@ -263,82 +353,82 @@
             "def chunker(seq, size): return (seq[pos:pos + size] for pos in range(0, len(seq), size))",
             "def pipeline(data, *funcs): return reduce(lambda x, f: f(x), funcs, data)"
         ];
-        
+
         const codeBg = document.getElementById('codeBackground');
-        
+
         function createCodeLine() {
             const line = document.createElement('div');
             line.className = 'code-line';
             line.textContent = codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
-            
+
             const startX = Math.random() * 100;
             const delay = Math.random() * 15;
             const duration = 10 + Math.random() * 20;
             const scale = 0.8 + Math.random() * 0.4;
-            
+
             line.style.left = `${startX}%`;
             line.style.animationDelay = `${delay}s`;
             line.style.animationDuration = `${duration}s`;
             line.style.transform = `scale(${scale})`;
-            
+
             // Случайный цвет для строк кода
             const hue = 120 + Math.random() * 60; // Зеленый-голубой диапазон
             line.style.color = `hsla(${hue}, 100%, 70%, 0.7)`;
             line.style.textShadow = `0 0 5px hsla(${hue}, 100%, 70%, 0.5)`;
-            
+
             codeBg.appendChild(line);
-            
+
             // Удаляем элемент после завершения анимации
             setTimeout(() => {
                 line.remove();
             }, (delay + duration) * 1000);
         }
-        
+
         // Создаём несколько строк кода сразу
         for (let i = 0; i < 30; i++) {
             createCodeLine();
         }
-        
+
         // Продолжаем создавать новые строки кода
         setInterval(createCodeLine, 800);
-        
+
         // Эффект курсора
         const cursor = document.getElementById('cursor');
         document.addEventListener('mousemove', (e) => {
             cursor.style.left = `${e.clientX}px`;
             cursor.style.top = `${e.clientY}px`;
         });
-        
+
         // Эффект частиц при клике
         document.addEventListener('click', (e) => {
             for (let i = 0; i < 8; i++) {
                 createParticle(e.clientX, e.clientY);
             }
         });
-        
+
         function createParticle(x, y) {
             const particle = document.createElement('div');
             particle.className = 'click-particle';
-            
+
             // Случайное направление и расстояние
             const angle = Math.random() * Math.PI * 2;
             const distance = 20 + Math.random() * 30;
             const tx = Math.cos(angle) * distance;
             const ty = Math.sin(angle) * distance;
-            
+
             particle.style.setProperty('--tx', `${tx}px`);
             particle.style.setProperty('--ty', `${ty}px`);
             particle.style.left = `${x}px`;
             particle.style.top = `${y}px`;
-            
+
             document.body.appendChild(particle);
-            
+
             // Удаляем частицу после анимации
             setTimeout(() => {
                 particle.remove();
             }, 1000);
         }
-        
+
         // Периодическое мерцание заголовка
         const title = document.querySelector('h1');
         setInterval(() => {
@@ -346,4 +436,5 @@
         }, 2000);
     </script>
 </body>
+
 </html>
