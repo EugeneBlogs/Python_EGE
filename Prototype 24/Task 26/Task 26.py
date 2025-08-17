@@ -10,7 +10,7 @@
 
 import string
 
-f = open("26.txt")
+f = open("26_1.txt")
 s = f.readline()
 result = 0
 # Проходимся по всему файлу
@@ -33,5 +33,35 @@ for i in range(len(s)):
         if count > 50:
             break
         if count == 50:
+            result = max(result, length)
+print(result)
+
+# Условие задания КИМ 24 (Умскул, ЕГЭ 2025):
+'''
+Текстовый файл состоит из десятичных цифр и заглавных букв латинского алфавита.
+Определите в прилагаемом файле последовательность из максимального количества идущих подряд символов,
+среди которых ровно 35 букв "S", начинающуюся чётной цифрой, не содержащую других чётных цифр, кроме первой.
+В ответе запишите число - количество символов в найденной последовательности.
+Для выполнения этого задания следует написать программу.
+'''
+
+f = open("26_2.txt")
+s = f.readline()
+result = 0
+EVEN = "02468"
+for i in range(len(s)):
+    if s[i] not in EVEN:
+        continue
+    count = 0
+    length = 1
+    for j in range(i + 1, len(s)):
+        if s[j] in EVEN:
+            break
+        if s[j] == "S":
+            count += 1
+        length += 1
+        if count > 35:
+            break
+        if count == 35:
             result = max(result, length)
 print(result)
