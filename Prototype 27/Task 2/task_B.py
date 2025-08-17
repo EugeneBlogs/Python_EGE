@@ -42,3 +42,36 @@ for i in range(k):
 print(int(min(best_anticentroids)[1] * 10_000))
 # Ордината (идёт третий после абсциссы, поэтому 2) антицентра кластера с наибольшим числом точек
 print(int(max(best_anticentroids)[2] * 10_000))
+
+'''
+Дополнительный вопрос (из другой задачи):
+Для файла "Б" определите координаты центра каждого кластера, затем найдите два числа:
+"Qx" - разность абсцисс центров кластеров с минимальным и максимальным количеством точек;
+"Qy" - разность ординат центров кластеров с минимальным и максимальным количеством точек;
+'''
+
+# Находим центроиды, так как по условию данной задачи мы находили антицентроиды
+best_centroids = [[] for _ in range(len(clusters))]
+for i in range(len(clusters)):
+    min_sum_dist = 10 ** 10
+    for x1, y1 in clusters[i]:
+        sum_dist = 0
+        for x2, y2 in clusters[i]:
+            sum_dist += math.dist([x1, y1], [x2, y2])
+        if sum_dist < min_sum_dist:
+            min_sum_dist = sum_dist
+            best_centroids[i] = [x1, y1]
+
+# Находим ID кластеров с минимальным и максимальным количеством точек
+min_points, max_points = min([len(c) for c in clusters]), max([len(c) for c in clusters])
+min_ID, max_ID = 0, 0
+for i in range(len(clusters)):
+    if len(clusters[i]) == min_points:
+        min_ID = i
+    if len(clusters[i]) == max_points:
+        max_ID = i
+
+# Вычисляем значения
+Q_x = int(abs(best_centroids[max_ID][0] - best_centroids[min_ID][0]) * 10_000)
+Q_y = int(abs(best_centroids[max_ID][1] - best_centroids[min_ID][1]) * 10_000)
+print(Q_x, Q_y)
