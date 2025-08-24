@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ошибка 404 - Страница не найдена</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Consolas', 'Monaco', monospace;
+        }
+
+        body {
+            background: #0c0e14;
+            color: #e1e1e6;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container {
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .error-code {
+            font-size: 8rem;
+            font-weight: 900;
+            color: #ff6b6b;
+            text-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .error-message {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: #a9a9b2;
+        }
+
+        .code-snippet {
+            background: rgba(30, 32, 40, 0.8);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem auto;
+            max-width: 600px;
+            text-align: left;
+            border-left: 4px solid #4dabf7;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .code-snippet::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(transparent 95%, rgba(30, 32, 40, 0.8) 100%);
+            animation: scroll 15s linear infinite;
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateY(0%);
+            }
+
+            100% {
+                transform: translateY(-100%);
+            }
+        }
+
+        .line-number {
+            color: #5c6370;
+            margin-right: 1rem;
+            user-select: none;
+        }
+
+        .keyword {
+            color: #c678dd;
+        }
+
+        .function {
+            color: #61afef;
+        }
+
+        .string {
+            color: #98c379;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: #4dabf7;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            border: none;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background: #339af0;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(77, 171, 247, 0.4);
+        }
+
+        .binary-rain {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .binary-char {
+            position: absolute;
+            color: rgba(77, 171, 247, 0.5);
+            font-size: 14px;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .error-code {
+                font-size: 5rem;
+            }
+
+            .error-message {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="binary-rain" id="binaryRain"></div>
+
+    <div class="container">
+        <h1 class="error-code">404</h1>
+        <p class="error-message">Страница не найдена, как и наши ошибки на ЕГЭ :)</p>
+
+        <div class="code-snippet">
+            <div><span class="line-number">1</span> <span class="keyword">try</span>:</div>
+            <div><span class="line-number">2</span> &nbsp;&nbsp;&nbsp;&nbsp;response = requests.get(requested_url)</div>
+            <div><span class="line-number">3</span> &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>
+                response.status_code == <span class="number">200</span>:</div>
+            <div><span class="line-number">4</span>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;render_page(response.content)</div>
+            <div><span class="line-number">5</span> &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span>:</div>
+            <div><span class="line-number">6</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                    class="keyword">raise</span> Http404(<span class="string">"Страница не найдена"</span>)</div>
+            <div><span class="line-number">7</span> <span class="keyword">except</span> PageNotFoundError:</div>
+            <div><span class="line-number">8</span> &nbsp;&nbsp;&nbsp;&nbsp;show_custom_404_page()</div>
+        </div>
+
+        <button class="button" onclick="history.back()">Назад</button>
+    </div>
+
+    <script>
+        function createBinaryRain() {
+            const container = document.getElementById('binaryRain');
+            const characters = '01010101010101010101';
+            const fontSize = 14;
+            const columns = Math.floor(window.innerWidth / fontSize);
+
+            for (let i = 0; i < columns; i++) {
+                const x = i * fontSize;
+                const y = Math.random() * -window.innerHeight;
+                const delay = Math.random() * 5;
+                const duration = 10 + Math.random() * 10;
+
+                const char = document.createElement('div');
+                char.className = 'binary-char';
+                char.textContent = characters.charAt(Math.floor(Math.random() * characters.length));
+                char.style.left = `${x}px`;
+                char.style.top = `${y}px`;
+                char.style.animation = `fall ${duration}s linear infinite`;
+                char.style.animationDelay = `${delay}s`;
+
+                container.appendChild(char);
+            }
+        }
+
+        window.addEventListener('load', createBinaryRain);
+        window.addEventListener('resize', function () {
+            document.getElementById('binaryRain').innerHTML = '';
+            createBinaryRain();
+        });
+
+        const codeSnippet = document.querySelector('.code-snippet');
+        setInterval(() => {
+            const lines = codeSnippet.querySelectorAll('div');
+            const randomLine = Math.floor(Math.random() * lines.length);
+
+            lines[randomLine].style.opacity = 0.7;
+            setTimeout(() => {
+                lines[randomLine].style.opacity = 1;
+            }, 300);
+        }, 2000);
+    </script>
+</body>
+
+</html>
