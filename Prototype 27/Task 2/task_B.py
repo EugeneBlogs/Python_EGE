@@ -71,7 +71,7 @@ for i in range(len(clusters)):
     if len(clusters[i]) == max_points:
         max_ID = i
 
-# Вычисляем значения
+# Вычисляем значения (целые части абсолютных величин)
 Q_x = int(abs(best_centroids[max_ID][0] - best_centroids[min_ID][0]) * 10_000)
 Q_y = int(abs(best_centroids[max_ID][1] - best_centroids[min_ID][1]) * 10_000)
 print(Q_x, Q_y)
