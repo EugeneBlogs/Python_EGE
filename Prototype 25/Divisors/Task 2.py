@@ -78,3 +78,46 @@ while len(result) < 5:
 
     num += 1
 print(*result)
+
+# Условие задания КИМ 25 (Гусева Марина Альфонсовна):
+'''
+Пусть "М" - сумма минимального и максимального простых натуральных делителей целого числа, не считая самого числа.
+Если таких делителей у числа нет, то значение "М" считается равным нулю.
+Напишите программу, которая перебирает целые числа, большие 5.400.000, в порядке возрастания и ищет среди них такие,
+для которых "М" больше 60.000 и является палиндромом, т.е. одинаково читается слева направо и справа налево.
+В ответе запишите первые пять найденных чисел в порядке возрастания, справа от каждого числа
+- соответствующее значение "М".
+'''
+
+
+def prime(x):
+    for i in range(2, x):
+        if x % i == 0:
+            return False
+    return True
+
+
+count = 0
+for n in range(5_400_000 + 1, 5_400_000 + 100000):
+    deliteli = []
+    for i in range(2, int(n ** 0.5) + 1):
+        if i ** 2 == n and prime(i):
+            deliteli.append(i)
+        elif n % i == 0:
+            min_del = i
+            max_del = n // i
+            if prime(min_del):
+                deliteli.append(min_del)
+            if prime(max_del):
+                deliteli.append(max_del)
+                
+    M = 0
+    deliteli = list(set(deliteli))
+    if len(deliteli) >= 2:
+        M = min(deliteli) + max(deliteli)
+
+    if M > 60000 and str(M) == str(M)[::-1]:
+        print(n, M)
+        count += 1
+    if count == 5:
+        break
