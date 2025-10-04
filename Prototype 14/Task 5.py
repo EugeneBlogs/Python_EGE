@@ -53,3 +53,28 @@ for x in range(37, -1, -1):
         result = (2 * 37 ** 2) + (x * 37) + (1)
         print(result)
         break
+
+# Условие задания КИМ 14 (Умскул):
+'''
+Найдите наибольшую возможную сумму цифр в девятеричной записи выражения "X11X2X3X4 (30 сс) - 11Y2Y3Y4Y (20 сс)",
+где вместо "X" и "У" может стоять ровно одна цифра. В ответ запишите целое число - найденную сумму цифр.
+Примечание: "Х" и "У" обозначают по одной цифре, они могут совпадать или различаться.
+'''
+
+from string import ascii_uppercase, digits
+
+alphabet = digits + ascii_uppercase
+max_sum = 0
+
+for i in range(30):
+    for j in range(20):
+        x, y = alphabet[i], alphabet[j]
+        a = int(f"{x}11{x}2{x}3{x}4", 30)
+        b = int(f"11{y}2{y}3{y}4{y}", 20)
+        result = a - b
+        sum_9 = 0
+        while result > 0:
+            sum_9 += result % 9
+            result //= 9
+        max_sum = max(max_sum, sum_9)
+print(max_sum)
