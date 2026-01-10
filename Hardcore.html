@@ -512,16 +512,75 @@
 </head>
 
 <body>
-    <h1>HARDCORE ЕГЭ ПО ИНФОРМАТИКЕ</h1>
-    <p><span class="warning">Внимание!</span> Данные задачи являются усложнёнными прототипами заданий ЕГЭ по
-        информатике. Приступать к ним рекомендуется только после изучения базовых прототипов.</p>
+<h1>HARDCORE ЕГЭ ПО ИНФОРМАТИКЕ</h1>
+<p><span class="warning">Внимание!</span> Данные задачи являются усложнёнными прототипами заданий ЕГЭ по
+    информатике. Приступать к ним рекомендуется только после изучения базовых прототипов.</p>
 
-    <!-- Задача 1 -->
-    <div class="task">
-        <span class="task-number">КИМ 12</span>
-        <h2>Условие задания:</h2>
-        <p>Дана программа для Редактора:</p>
-        <pre><code>ПОКА нашлось (366) ИЛИ нашлось (166) ИЛИ нашлось (136)
+<!-- Задача 1 -->
+<div class="task">
+    <span class="task-number">КИМ 8</span>
+    <h2>Условие задания:</h2>
+    <p>Математик Артур составляет пятибуквенные слова, используя буквы "М", "А", "Л", "Й", "И", "Н", "К".
+        Он знает, что ровно три буквы находятся на тех же позициях, что и в слове "АЙЛИН".</p>
+    <p>Сколько различных слов может составить Артур?</p>
+
+    <h3>Решение:</h3>
+    <div class="compiler-container">
+            <textarea id="python-code-1" class="compiler-editor">from itertools import product
+
+p = product("МАЛЙИНК", repeat=5)
+word = "АЙЛИН"
+count = 0
+for x in p:
+    correct = 0
+    for i in range(len(x)):
+        if x[i] == word[i]:
+            correct += 1
+    if correct == 3:
+        count += 1
+print(count)</textarea>
+        <button onclick="runCode(1)" class="compiler-btn">Запустить</button>
+        <div id="output-1" class="compiler-output">Результат выполнения появится здесь...</div>
+    </div>
+</div>
+
+<!-- Задача 2 -->
+<div class="task">
+    <span class="task-number">КИМ 8</span>
+    <h2>Условие задания:</h2>
+    <p>Саша и Максим играют в игру. Каждый из игроков составляет слова из букв своего имени.
+        Под словом подразумевается любая последовательность символов, не обязательно осмысленная.
+        Каждая буква может входить в слово любое количество раз. Саша составляет слова длиной 6 символов,
+        а Максим — длиной 4 символа. Победителем считается тот игрок, который составил большее количество слов.</p>
+    <p>Определите, кто из игроков победил, в ответе запишите первую букву в нижнем регистре имени этого игрока и
+        модуль разности количества слов, составленных Сашей и Максимом.</p>
+    <p>Пример: если Саша составил 6 слов, а Максим — 3, то в ответ стоит записать "с3" (в нижнем регистре).</p>
+
+    <h3>Решение:</h3>
+    <div class="compiler-container">
+            <textarea id="python-code-2" class="compiler-editor">from itertools import product
+
+p1 = product("САША", repeat=6)
+p2 = product("МАКСИМ", repeat=4)
+
+c1 = sum([1 for _ in p1])
+c2 = sum([1 for _ in p2])
+
+if c1 > c2:
+    print(f"с{c1 - c2}")
+else:
+    print(f"м{c2 - c1}")</textarea>
+        <button onclick="runCode(2)" class="compiler-btn">Запустить</button>
+        <div id="output-2" class="compiler-output">Результат выполнения появится здесь...</div>
+    </div>
+</div>
+
+<!-- Задача 3 -->
+<div class="task">
+    <span class="task-number">КИМ 12</span>
+    <h2>Условие задания:</h2>
+    <p>Дана программа для Редактора:</p>
+    <pre><code>ПОКА нашлось (366) ИЛИ нашлось (166) ИЛИ нашлось (136)
     ЕСЛИ нашлось (366)
         ТО заменить (366, xy)
     КОНЕЦ ЕСЛИ
@@ -532,16 +591,16 @@
         ТО заменить (136, 31)
     КОНЕЦ ЕСЛИ
 КОНЕЦ ПОКА</code></pre>
-        <p>На вход приведённой выше программе поступает строка, начинающаяся с цифры «3», а затем содержащая 25 цифр 6.
-        </p>
-        <p>Определите наименьшие ненулевые значения цифр "x" и "y", при которых сумма цифр в строке, получившейся в
-            результате выполнения программы, равна 154 (если результатов несколько, в ответе напишите пару с минимальным
-            "x").</p>
-        <p>В ответе укажите цифры в порядке убывания.</p>
+    <p>На вход приведённой выше программе поступает строка, начинающаяся с цифры «3», а затем содержащая 25 цифр 6.
+    </p>
+    <p>Определите наименьшие ненулевые значения цифр "x" и "y", при которых сумма цифр в строке, получившейся в
+        результате выполнения программы, равна 154 (если результатов несколько, в ответе напишите пару с минимальным
+        "x").</p>
+    <p>В ответе укажите цифры в порядке убывания.</p>
 
-        <h3>Решение:</h3>
-        <div class="compiler-container">
-            <textarea id="python-code-1" class="compiler-editor">import string
+    <h3>Решение:</h3>
+    <div class="compiler-container">
+            <textarea id="python-code-3" class="compiler-editor">import string
 
 answer = False
 
@@ -566,26 +625,28 @@ for x in string.digits[1:]:
             break
     if answer:
         break</textarea>
-            <button onclick="runCode(1)" class="compiler-btn">Запустить</button>
-            <div id="output-1" class="compiler-output">Результат выполнения появится здесь...</div>
-        </div>
+        <button onclick="runCode(3)" class="compiler-btn">Запустить</button>
+        <div id="output-3" class="compiler-output">Результат выполнения появится здесь...</div>
     </div>
+</div>
 
-    <!-- Задача 2 (новая, КИМ 13) -->
-    <div class="task">
-        <span class="task-number">КИМ 13</span>
-        <h2>Условие задания:</h2>
-        <p>В терминологии сетей TCP/IP <em>wildcard-маской</em> называют двоичное число, которое показывает,
-            какая часть IP-адреса является переменной (то есть может меняться), а какая — фиксированной.
-            Wildcard-маска противоположна маске сети: там, где в маске стоят единицы, в wildcard-маске будут идти нули, и наоборот.
-            Адрес сети и широковещательный адрес не могут быть использованы для адресации сетевых устройств.</p>
-        <p>Сеть задана IP-адресом <code>172.16.80.0</code> и wildcard-маской <code>0.0.7.255</code>.</p>
-        <p>Сколько в этой сети IP-адресов, для которых количество единиц в двоичной записи IP-адреса <strong>не кратно 3</strong>?
-            В ответе укажите только число.</p>
+<!-- Задача 4 -->
+<div class="task">
+    <span class="task-number">КИМ 13</span>
+    <h2>Условие задания:</h2>
+    <p>В терминологии сетей TCP/IP <em>wildcard-маской</em> называют двоичное число, которое показывает,
+        какая часть IP-адреса является переменной (то есть может меняться), а какая — фиксированной.
+        Wildcard-маска противоположна маске сети: там, где в маске стоят единицы, в wildcard-маске будут идти нули, и
+        наоборот.
+        Адрес сети и широковещательный адрес не могут быть использованы для адресации сетевых устройств.</p>
+    <p>Сеть задана IP-адресом <code>172.16.80.0</code> и wildcard-маской <code>0.0.7.255</code>.</p>
+    <p>Сколько в этой сети IP-адресов, для которых количество единиц в двоичной записи IP-адреса <strong>не кратно
+        3</strong>?
+        В ответе укажите только число.</p>
 
-        <h3>Решение:</h3>
-        <div class="compiler-container">
-            <textarea id="python-code-2" class="compiler-editor"># 1. Инвертируем wildcard-маску в маску сети, заменив все 0 на 1, а все 1 на 0.
+    <h3>Решение:</h3>
+    <div class="compiler-container">
+            <textarea id="python-code-4" class="compiler-editor"># 1. Инвертируем wildcard-маску в маску сети, заменив все 0 на 1, а все 1 на 0.
 # 00000000.00000000.00000111.11111111 - wildcard-маска в двоичном представлении.
 # 11111111.11111111.11111000.00000000 - маска сети в двоичном представлении. В ней получилась 21 единица.
 
@@ -598,55 +659,89 @@ for ip_add in ip_net:
     if f"{ip_add:b}".count("1") % 3 != 0:
         count += 1
 print(count)</textarea>
-            <button onclick="runCode(2)" class="compiler-btn">Запустить</button>
-            <div id="output-2" class="compiler-output">Результат выполнения появится здесь...</div>
-        </div>
+        <button onclick="runCode(4)" class="compiler-btn">Запустить</button>
+        <div id="output-4" class="compiler-output">Результат выполнения появится здесь...</div>
     </div>
+</div>
 
-    <!-- Задача 3 -->
-    <div class="task">
-        <span class="task-number">КИМ 14</span>
-        <h2>Условие задания:</h2>
-        <p>Значение выражения 49 * 52^32 + 33^123 + 74 * 43^121 - 751235 записали в некоторой системе счисления,
-            основание которой больше 16. Оказалось, что количество цифр 4 в этой записи максимально.</p>
-        <p>Определите эту систему счисления и запишите её в ответе в десятичной системе счисления. Если таких несколько,
-            укажите ту, у которой числовой значение больше.</p>
+<!-- Задача 5 -->
+<div class="task">
+    <span class="task-number">КИМ 15</span>
+    <h2>Условие задания:</h2>
+    <p>На числовой прямой дан отрезок <code>A = [3;60]</code>; <code>B</code> — множество всех натуральных делителей
+        числа 177, отличных от единицы
+        и от самого числа 177; <code>C</code> — множество всех натуральных делителей некоторого натурального числа
+        <code>y</code>,
+        отличных от единицы и от самого числа <code>y</code> (число <code>y</code> таково, что множество <code>C</code>
+        непустое).</p>
+    <p>Укажите наибольшее возможное значение числа <code>y</code>, для которого выражение<br>
+        <code>(x ∈ C) → ((x ∈ A) ∧ ¬(x ∈ B))</code><br>
+        истинно (т. е. принимает значение 1) при любом значении переменной <code>x</code>.</p>
 
-        <h3>Решение:</h3>
-        <div class="compiler-container">
-            <textarea id="python-code-3" class="compiler-editor">result = []
-for base in range(16 + 1, 100):
-    s = 49 * 52 ** 32 + 33 ** 123 + 74 * 43 ** 121 - 751235
-    count_4 = 0
-    while s > 0:
-        if (s % base) == 4:
-            count_4 += 1
-        s //= base
-    result.append([count_4, base])
-print(max(result)[1])</textarea>
-            <button onclick="runCode(3)" class="compiler-btn">Запустить</button>
-            <div id="output-3" class="compiler-output">Результат выполнения появится здесь...</div>
-        </div>
+    <h3>Решение:</h3>
+    <div class="compiler-container">
+            <textarea id="python-code-5" class="compiler-editor">def getDivisors(n):
+    divisors = []
+    for i in range(2, int(n ** 0.5) + 1):
+        if i ** 2 == n:
+            divisors.append(i)
+        elif n % i == 0:
+            divisors.append(i)
+            divisors.append(n // i)
+    return divisors
+
+
+A = list(range(3, 61))
+B = getDivisors(177)
+
+
+def condition_satisfied(y):
+    C = getDivisors(y)
+
+    if not C:
+        return False
+
+    for x in C:
+        if not ((x in C) <= ((x in A) and (x not in B))):
+            return False
+    return True
+
+
+for y in range(10 ** 4, -1, -1):
+    C = getDivisors(y)
+    if not C:
+        continue
+    for x in C:
+        if not ((x in C) <= ((x in A) and (x not in B))):
+            break
+    else:
+        print(y)
+        break</textarea>
+        <button onclick="runCode(5)" class="compiler-btn">Запустить</button>
+        <div id="output-5" class="compiler-output">Результат выполнения появится здесь...</div>
     </div>
+</div>
 
-    <!-- Задача 4 -->
-    <div class="task">
-        <span class="task-number">КИМ 25</span>
-        <h2>Условие задания:</h2>
-        <p>Назовём маской числа последовательность цифр, в которой также могут встречаться следующие символы:</p>
-        <ol>
-            <li>символ «?» означает ровно одну произвольную цифру;</li>
-            <li>символ «*» означает любую последовательность цифр произвольной длины; в том числе «*» может задавать и
-                пустую последовательность.</li>
-        </ol>
-        <p>Среди натуральных чисел, не превышающих 10^9, найдите все числа, соответствующие маске "132?5*5??", которые
-            представляют собой произведение двух различных простых чисел и делятся на 2237 без остатка.</p>
-        <p>В ответе запишите пару чисел без пробелов и иных разделителей: последнее найденное число в порядке
-            возрастания и результат его деления на 2237.</p>
+<!-- Задача 6 -->
+<div class="task">
+    <span class="task-number">КИМ 25</span>
+    <h2>Условие задания:</h2>
+    <p>Назовём маской числа последовательность цифр, в которой также могут встречаться следующие символы:</p>
+    <ol>
+        <li>символ «?» означает ровно одну произвольную цифру;</li>
+        <li>символ «*» означает любую последовательность цифр произвольной длины; в том числе «*» может задавать и
+            пустую последовательность.
+        </li>
+    </ol>
+    <p>Среди натуральных чисел, не превышающих 10<sup>9</sup>, найдите все числа, соответствующие маске "132?5*5??",
+        которые
+        представляют собой произведение двух различных простых чисел и делятся на 2237 без остатка.</p>
+    <p>В ответе запишите пару чисел без пробелов и иных разделителей: последнее найденное число в порядке
+        возрастания и результат его деления на 2237.</p>
 
-        <h3>Решение:</h3>
-        <div class="compiler-container">
-            <textarea id="python-code-4" class="compiler-editor">from fnmatch import fnmatch
+    <h3>Решение:</h3>
+    <div class="compiler-container">
+            <textarea id="python-code-6" class="compiler-editor">from fnmatch import fnmatch
 
 
 def prime(x):
@@ -664,97 +759,98 @@ for x in range(2237, 10 ** 9 + 1, 2237):
         if prime(x // 2237):
             result.append([x, x // 2237])
 print(result[-1])  # Выводим только последнее число</textarea>
-            <button onclick="runCode(4)" class="compiler-btn">Запустить</button>
-            <div id="output-4" class="compiler-output">Результат выполнения появится здесь...</div>
-        </div>
+        <button onclick="runCode(6)" class="compiler-btn">Запустить</button>
+        <div id="output-6" class="compiler-output">Результат выполнения появится здесь...</div>
     </div>
+</div>
 
-    <div class="signature">
-        <div>Источник заданий: онлайн-школа «Умскул»</div>
-        <div>Онлайн-компилятор работает на базе Piston API (emkc.org)</div>
-        <div>Разработка и доработка сайта: DeepSeek и Qwen</div>
-        <div>Идея: Евгений Мыльников</div>
-    </div>
+<div class="signature">
+    <div>Источник заданий: онлайн-школа «Умскул»</div>
+    <div>Онлайн-компилятор работает на базе Piston API (emkc.org)</div>
+    <div>Разработка и доработка сайта: DeepSeek и Qwen</div>
+    <div>Идея: Евгений Мыльников</div>
+</div>
 
-    <div class="fire-container">
-        <div class="fire"></div>
-    </div>
+<div class="fire-container">
+    <div class="fire"></div>
+</div>
 
-    <!-- Создаем искры -->
-    <script>
-        // Создаем искры
-        function createSparks() {
-            const sparksCount = 20;
-            for (let i = 0; i < sparksCount; i++) {
-                const spark = document.createElement('div');
-                spark.classList.add('spark');
+<!-- Создаем искры -->
+<script>
+    // Создаем искры
+    function createSparks() {
+        const sparksCount = 20;
+        for (let i = 0; i < sparksCount; i++) {
+            const spark = document.createElement('div');
+            spark.classList.add('spark');
 
-                // Случайные начальные позиции
-                const startX = Math.random() * 100;
-                const startY = Math.random() * 100;
+            // Случайные начальные позиции
+            const startX = Math.random() * 100;
+            const startY = Math.random() * 100;
 
-                // Случайные конечные позиции
-                const endX = (Math.random() - 0.5) * 200;
-                const endY = (Math.random() - 0.5) * 200;
+            // Случайные конечные позиции
+            const endX = (Math.random() - 0.5) * 200;
+            const endY = (Math.random() - 0.5) * 200;
 
-                spark.style.left = startX + 'vw';
-                spark.style.top = startY + 'vh';
-                spark.style.setProperty('--spark-x', endX + 'px');
-                spark.style.setProperty('--spark-y', endY + 'px');
+            spark.style.left = startX + 'vw';
+            spark.style.top = startY + 'vh';
+            spark.style.setProperty('--spark-x', endX + 'px');
+            spark.style.setProperty('--spark-y', endY + 'px');
 
-                // Случайная задержка анимации
-                spark.style.animationDelay = Math.random() * 4 + 's';
+            // Случайная задержка анимации
+            spark.style.animationDelay = Math.random() * 4 + 's';
 
-                document.body.appendChild(spark);
-            }
+            document.body.appendChild(spark);
         }
+    }
 
-        // Запускаем создание искр при загрузке страницы
-        window.addEventListener('load', createSparks);
-    </script>
+    // Запускаем создание искр при загрузке страницы
+    window.addEventListener('load', createSparks);
+</script>
 
-    <!-- Скрипт для работы онлайн-компилятора -->
-    <script>
-        async function runCode(taskNum) {
-            const code = document.getElementById(`python-code-${taskNum}`).value;
-            const outputDiv = document.getElementById(`output-${taskNum}`);
 
-            outputDiv.textContent = "Выполнение...";
+<!-- Скрипт для работы онлайн-компилятора -->
+<script>
+    async function runCode(taskNum) {
+        const code = document.getElementById(`python-code-${taskNum}`).value;
+        const outputDiv = document.getElementById(`output-${taskNum}`);
 
-            try {
-                // Используем API для выполнения Python кода
-                const response = await fetch('https://emkc.org/api/v2/piston/execute', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        language: 'python',
-                        version: '3.10.0',
-                        files: [{
-                            content: code
-                        }]
-                    })
-                });
+        outputDiv.textContent = "Выполнение...";
 
-                const result = await response.json();
+        try {
+            // Используем API для выполнения Python кода
+            const response = await fetch('https://emkc.org/api/v2/piston/execute', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    language: 'python',
+                    version: '3.10.0',
+                    files: [{
+                        content: code
+                    }]
+                })
+            });
 
-                if (result.run) {
-                    if (result.run.stdout) {
-                        outputDiv.textContent = result.run.stdout;
-                    } else if (result.run.stderr) {
-                        outputDiv.textContent = "Ошибка:\n" + result.run.stderr;
-                    } else {
-                        outputDiv.textContent = "Код выполнен, но нет вывода.";
-                    }
+            const result = await response.json();
+
+            if (result.run) {
+                if (result.run.stdout) {
+                    outputDiv.textContent = result.run.stdout;
+                } else if (result.run.stderr) {
+                    outputDiv.textContent = "Ошибка:\n" + result.run.stderr;
                 } else {
-                    outputDiv.textContent = "Ошибка выполнения: " + (result.message || "неизвестная ошибка");
+                    outputDiv.textContent = "Код выполнен, но нет вывода.";
                 }
-            } catch (error) {
-                outputDiv.textContent = "Ошибка подключения к компилятору: " + error.message;
+            } else {
+                outputDiv.textContent = "Ошибка выполнения: " + (result.message || "неизвестная ошибка");
             }
+        } catch (error) {
+            outputDiv.textContent = "Ошибка подключения к компилятору: " + error.message;
         }
-    </script>
+    }
+</script>
 </body>
 
 </html>
