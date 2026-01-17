@@ -694,19 +694,6 @@ print(count)</textarea>
 A = list(range(3, 61))
 B = getDivisors(177)
 
-
-def condition_satisfied(y):
-    C = getDivisors(y)
-
-    if not C:
-        return False
-
-    for x in C:
-        if not ((x in C) <= ((x in A) and (x not in B))):
-            return False
-    return True
-
-
 for y in range(10 ** 4, -1, -1):
     C = getDivisors(y)
     if not C:
