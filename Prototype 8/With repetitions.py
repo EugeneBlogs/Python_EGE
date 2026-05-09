@@ -177,3 +177,40 @@ for x in p:
         if int(s[0]) > int(s[1]) > int(s[2]) > int(s[3]):
             count += 1
 print(count)
+
+# Условие задания КИМ 8 (Умскул):
+'''
+Плохой мальчик Никита придумывает имя игровому персонажу и составляет шестибуквенные слова из букв:
+"Н, И, К, Т, О, С".
+Причём сначала в имени должны быть расположены согласные в алфавитном порядке,
+затем - гласные в обратном алфавитном порядке. Буквы могут повторяться. Также возможны имена,
+состоящие только из согласных или только из гласных. Сколько различных имён может составить Никита?
+'''
+
+from itertools import product
+
+p = product("НИКТОС", repeat=6)
+c = 0
+
+glas = "ИО"
+sogl = "НКТС"
+
+for x in p:
+    s = "".join(x)
+
+    part1 = ""
+    part2 = ""
+    for i in s:
+        if i in sogl:
+            part1 += i
+        else:
+            part2 = s[len(part1):]
+            break
+
+    if any(True for i in glas if i in part1) or any(True for i in sogl if i in part2):
+        continue
+
+    if part1 == "".join(sorted(part1)) and part2 == "".join(sorted(part2)):
+        c += 1
+
+print(c)
